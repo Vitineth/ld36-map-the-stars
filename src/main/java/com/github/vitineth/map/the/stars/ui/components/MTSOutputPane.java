@@ -3,7 +3,9 @@ package com.github.vitineth.map.the.stars.ui.components;
 import com.github.vitineth.map.the.stars.ui.theme.Theme;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTextUI;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
@@ -61,11 +63,13 @@ public class MTSOutputPane extends JTextPane {
         outputStyle = getStyledDocument().addStyle("outputStyle", null);
         errorStyle = getStyledDocument().addStyle("errorStyle", null);
 
-        StyleConstants.setForeground(inputStyle, Color.GREEN);
+        StyleConstants.setForeground(inputStyle, new Color(0, 127, 0));
         StyleConstants.setForeground(outputStyle, theme.getForeground());
-        StyleConstants.setForeground(errorStyle, Color.RED);
+        StyleConstants.setForeground(errorStyle, new Color(255, 107, 104));
 
         setEditable(false);
+        overwriteStd();
+        ((DefaultCaret) getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
     @Override
@@ -78,13 +82,13 @@ public class MTSOutputPane extends JTextPane {
         }
 
         g.setColor(new Color(146, 146, 146));
-        g.fillRect(30,0, getWidth() - 60, 1);
-        g.fillRect(30,getHeight() - 1, getWidth() - 60, 1);
+        g.fillRect(30, 0, getWidth() - 60, 1);
     }
 
     /**
      * Returns whether the output pane is locked. This is to be used when the user needs to do something with the
      * interactive pane.
+     *
      * @return boolean if the pane is locked
      */
     public boolean isLocked() {
@@ -95,6 +99,7 @@ public class MTSOutputPane extends JTextPane {
      * Sets whether the pane is locked. This should be used when the user needs to provide input into the interactive
      * panel to make it clear. This paints a translucent rectangle over the top of the pane to show that it is currently
      * deactivated.
+     *
      * @param locked boolean if pane should be locked.
      */
     public void setLocked(boolean locked) {
@@ -104,6 +109,7 @@ public class MTSOutputPane extends JTextPane {
 
     /**
      * Returns a version of the pane wrapped in a borderless scroll pane.
+     *
      * @return JScrollPane a borderless scroll pane.
      */
     public JScrollPane wrapPane() {
@@ -115,9 +121,17 @@ public class MTSOutputPane extends JTextPane {
     /**
      * Overwrites the system out and err printstreams with the outputs of this panel.
      */
-    public void overwriteStd(){
+    public void overwriteStd() {
         System.setOut(out);
         System.setErr(err);
+    }
+
+    public void addInput(String command) {
+        try {
+            getStyledDocument().insertString(getStyledDocument().getLength(), ">> " + command, inputStyle);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
 }

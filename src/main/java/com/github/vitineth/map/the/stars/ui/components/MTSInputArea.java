@@ -1,5 +1,6 @@
 package com.github.vitineth.map.the.stars.ui.components;
 
+import com.github.vitineth.map.the.stars.MapTheStars;
 import com.github.vitineth.map.the.stars.ui.theme.Theme;
 
 import javax.swing.*;
@@ -26,12 +27,20 @@ public class MTSInputArea extends JTextArea {
         this.theme = theme;
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setText(">> ");
+        setCaretPosition(3);
         addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
                 if (getText().length() <= 3){
                     if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) e.consume();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    if (getText().length() > 3){
+                        MapTheStars.getCommandController().onCommand(getText().substring(3));
+                        setText(">> ");
+                        e.consume();
+                    }
                 }
             }
 
@@ -54,6 +63,9 @@ public class MTSInputArea extends JTextArea {
             g.setColor(new Color(t.getRed(), t.getGreen(), t.getBlue(), 100));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
+
+        g.setColor(new Color(146, 146, 146));
+        g.fillRect(30, 0, getWidth() - 60, 1);
     }
 
     public boolean isLocked() {

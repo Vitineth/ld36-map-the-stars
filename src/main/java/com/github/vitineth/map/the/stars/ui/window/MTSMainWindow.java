@@ -10,6 +10,8 @@ import com.github.vitineth.map.the.stars.ui.theme.Theme;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * The main input window for the Map The Stars game.
@@ -110,6 +112,12 @@ public class MTSMainWindow extends JFrame {
         inputGBC.weighty = 0.05d;
         inputGBC.fill = GridBagConstraints.BOTH;
         body.add(inputArea.wrapArea(), inputGBC);
+
+        addWindowFocusListener(new WindowAdapter() {
+            public void windowGainedFocus(WindowEvent e) {
+                inputArea.requestFocusInWindow();
+            }
+        });
     }
 
     /**
