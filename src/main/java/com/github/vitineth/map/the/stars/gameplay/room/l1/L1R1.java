@@ -5,11 +5,9 @@ import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.log.Log;
-import com.github.vitineth.map.the.stars.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Class Description
@@ -28,7 +26,7 @@ public class L1R1 extends Room {
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r1.png")));
         } catch (IOException e) {
-            Log.s("RoomL1R1", "Failed to load the level image! The interactive pane will be blank!");
+            Log.s("RoomL1R1", "Failed to load the level image! The interactive pane will be blank!", e);
         }
     }
 

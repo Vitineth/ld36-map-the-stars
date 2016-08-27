@@ -1,5 +1,6 @@
 package com.github.vitineth.map.the.stars.ui.components;
 
+import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.theme.Theme;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class MTSOutputPane extends JTextPane {
             try {
                 getStyledDocument().insertString(getStyledDocument().getLength(), new String(new byte[]{(byte) b}), outputStyle);
             } catch (BadLocationException e) {
-                e.printStackTrace();
+                Log.s("MTSOutputPane/Out/Write", "Bad Location Exception when inserting output text!", e);
             }
         }
     });
@@ -51,7 +52,7 @@ public class MTSOutputPane extends JTextPane {
             try {
                 getStyledDocument().insertString(getStyledDocument().getLength(), new String(new byte[]{(byte) b}), errorStyle);
             } catch (BadLocationException e) {
-                e.printStackTrace();
+                Log.s("MTSOutputPane/Err/Write", "Bad Location Exception when inserting error text!", e);
             }
         }
     });

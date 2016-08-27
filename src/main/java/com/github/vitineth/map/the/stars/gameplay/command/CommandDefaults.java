@@ -13,7 +13,9 @@ public enum CommandDefaults {
 
     INSPECT("(inspect|examine|check( over)?|scrutini(z|s)e|investigate|survey|study|(go |look )over|(take a )?look at|pore over|view|scan|observe|explore) "),
     PICK_UP("(seize|grasp|snatch|(seize|grab|take|catch|lay) hold of|take a grip of|pick up|grab|lift|take|retrieve) "),
-    EXIT("(exit|leave|use exit|go out)");
+    EXIT("(exit|leave|use exit|go out)"),
+    USE("(utilize|(make use|avail oneself) of|employ|work|operate|wield|ply|apply|manipulate|put to use|put into service|interact with|use) "),
+    DOOR("(enter|use|go through|pass through|open|walk through) ");
 
     private String regex;
 

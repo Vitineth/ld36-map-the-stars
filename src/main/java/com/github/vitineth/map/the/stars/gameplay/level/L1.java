@@ -1,6 +1,7 @@
 package com.github.vitineth.map.the.stars.gameplay.level;
 
 import com.github.vitineth.map.the.stars.gameplay.room.l1.L1R1;
+import com.github.vitineth.map.the.stars.gameplay.room.l1.L1R2;
 
 /**
  * Class Description
@@ -17,5 +18,6 @@ public class L1 extends Level {
         super("Main", 0);
 
         setStarting(new L1R1(this));
+        new L1R2(this);
     }
 }

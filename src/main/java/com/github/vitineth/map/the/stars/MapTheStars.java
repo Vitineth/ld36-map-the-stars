@@ -2,7 +2,6 @@ package com.github.vitineth.map.the.stars;
 
 import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandController;
-import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.level.L1;
 import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.window.MTSMainWindow;

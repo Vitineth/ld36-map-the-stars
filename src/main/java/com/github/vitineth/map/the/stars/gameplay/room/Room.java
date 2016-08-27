@@ -5,12 +5,9 @@ import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
-import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -88,6 +85,7 @@ public abstract class Room {
     protected boolean moveToRoom(String id) {
         if (getPlayer().getLevel().getRooms().containsKey(id)) {
             getPlayer().setRoom(getPlayer().getLevel().getRooms().get(id));
+            getPlayer().getLevel().getRooms().get(id).enterRoom();
             return true;
         } else {
             return false;
