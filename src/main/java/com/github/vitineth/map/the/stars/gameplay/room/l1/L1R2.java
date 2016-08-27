@@ -105,7 +105,7 @@ public class L1R2 extends Room {
                 if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
                     System.out.println("Shouldn't you insert all the lenses and frames before you add the liquid?");
                 } else {
-                    System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. A small amount seems to drip onto your hands but you don't pay much attention at first. Once you have finished pouring you go to wipe the liquid from your hands only to see it being absorbed by your skin. The liquid seems to turn and grimace at you. You must be imaginging it right? Nothing like that can really happen right? You head begins to spin and colours starts to fade in and out of sight in front of you. The walls begin to move and suddenly a door is revealed on the east wall. You are dragged through it by some unknown force. Something controlling you.");
+                    System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. ");
                     moveToLevel("l2", "l2r1");
                 }
             } else {

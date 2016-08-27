@@ -73,7 +73,6 @@ public class AlchemyPuzzle extends Puzzle {
         for (int i = 0; i < random.nextInt(copy.size() - 3) + 3; i++) {
             correct.add(new Mixture(copy.get(i), random.nextInt(9) + 1));
         }
-        correct.stream().forEach(c -> System.out.println(c.getCircle().getCircleID() + ", " + c.getAmount()));
         circles.add(new Circle(1440, 822, 82, "RESET", Color.decode("#ff0000")));
     }
 
@@ -81,7 +80,7 @@ public class AlchemyPuzzle extends Puzzle {
     public void puzzleLaunched(MTSInteractivePanel panel) {
         super.puzzleLaunched(panel);
         MapTheStars.getMtsMainWindow().getInputArea().setLocked(true);
-        System.out.println("Lens Enhancement Solution");
+        System.out.println("Lens Enhancement Solution. Note: incorrect mixture causes nausea and some strange visual artifacts -Fei");
         System.out.println(correct.get(0).getAmount() + " drops of " + correct.get(0).getCircle().getCircleID());
     }
 
@@ -166,12 +165,16 @@ public class AlchemyPuzzle extends Puzzle {
                 }
             }
         });
-        if (mixture.size() == correct.size() && mixture.get(mixture.size() - 1).getAmount() >= correct.get(correct.size() - 1).getAmount()) {
+        if (mixture.size() >= correct.size() && mixture.get(mixture.size() - 1).getAmount() >= correct.get(correct.size() - 1).getAmount()) {
             boolean s = true;
-            for (int i = 0; i < mixture.size(); i++) {
-                if (!mixture.get(i).getCircle().getCircleID().equals(correct.get(i).getCircle().getCircleID()) || mixture.get(i).getAmount() != correct.get(i).getAmount()) {
-                    s = false;
+            if (mixture.size() == correct.size()) {
+                for (int i = 0; i < mixture.size(); i++) {
+                    if (!mixture.get(i).getCircle().getCircleID().equals(correct.get(i).getCircle().getCircleID()) || mixture.get(i).getAmount() != correct.get(i).getAmount()) {
+                        s = false;
+                    }
                 }
+            } else {
+                s = false;
             }
             if (!s) {
                 hallucination = true;
@@ -187,7 +190,7 @@ public class AlchemyPuzzle extends Puzzle {
                         e1.printStackTrace();
                     }
                 }).start();
-            }else{
+            } else {
                 MapTheStars.getPlayer().addItem(new Item("Lens Enhancement Solution", 1, "A strange coloured mixture that you have been assured will make the lens more accurate."));
                 MapTheStars.getMtsMainWindow().getInputArea().setLocked(false);
                 panel.completePuzzle();
@@ -195,7 +198,7 @@ public class AlchemyPuzzle extends Puzzle {
             }
         }
         System.out.println("   " + mixture.get(mixture.size() - 1).getAmount() + " drops");
-        if (mixture.size() <= correct.size() && correct.get(mixture.size() - 1).getAmount() == mixture.get(mixture.size() - 1).getAmount()) {
+        if (mixture.size() < correct.size() && correct.get(mixture.size() - 1).getAmount() == mixture.get(mixture.size() - 1).getAmount()) {
             System.out.println(correct.get(mixture.size()).getAmount() + " drops of " + correct.get(mixture.size()).getCircle().getCircleID());
         }
     }

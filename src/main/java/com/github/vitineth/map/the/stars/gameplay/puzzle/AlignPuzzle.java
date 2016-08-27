@@ -1,5 +1,6 @@
 package com.github.vitineth.map.the.stars.gameplay.puzzle;
 
+import com.github.vitineth.map.the.stars.MapTheStars;
 import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.components.MTSInteractivePanel;
 import com.github.vitineth.map.the.stars.util.ColorMapper;
@@ -141,7 +142,12 @@ public class AlignPuzzle extends Puzzle {
                             starIndex = 4;
                             panel.repaint();
                             Thread.sleep(500);
+                            System.out.println("A small amount seems to drip onto your hands but you don't pay much attention at first. Once you have finished looking you go to wipe the liquid from your hands only to see it being absorbed by your skin. The liquid seems to turn and grimace at you. You must be imaginging it right? Nothing like that can really happen right? You head begins to spin and colours starts to fade in and out of sight in front of you. The walls begin to move and suddenly a door is revealed on the east wall. You are dragged through it by some unknown force. Something controlling you.");
                             panel.completePuzzle();
+
+                            MapTheStars.getPlayer().setLevel(MapTheStars.getLevels().get("L2"));
+                            MapTheStars.getPlayer().setRoom(MapTheStars.getPlayer().getLevel().getStarting());
+                            MapTheStars.getPlayer().getRoom().enterRoom();
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
