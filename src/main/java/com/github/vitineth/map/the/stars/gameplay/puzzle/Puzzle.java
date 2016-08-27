@@ -20,6 +20,11 @@ public abstract class Puzzle implements MouseListener,KeyListener{
 
     protected MTSInteractivePanel panel;
     protected Dimension drawSize;
+    private Dimension size;
+
+    public Puzzle(Dimension size) {
+        this.size = size;
+    }
 
     public void puzzleLaunched(MTSInteractivePanel panel){
         this.panel = panel;
@@ -33,4 +38,11 @@ public abstract class Puzzle implements MouseListener,KeyListener{
 
     public abstract boolean isComplete();
 
+    protected void setSize(Dimension size) {
+        this.size = size;
+    }
+
+    public Dimension getSize() {
+        return size;
+    }
 }

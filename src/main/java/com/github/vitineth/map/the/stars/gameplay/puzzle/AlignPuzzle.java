@@ -30,6 +30,16 @@ public class AlignPuzzle extends Puzzle {
     private int starIndex = 0;
     private int controlIndex = 0;
 
+    public AlignPuzzle() {
+        super(new Dimension(0, 0));
+        try {
+            puzzle_overlay = ImageIO.read(getClass().getResourceAsStream("/images/puzzle_overlay.png"));
+            setSize(new Dimension(puzzle_overlay.getWidth(), puzzle_overlay.getHeight()));
+        } catch (IOException e) {
+            Log.s("AlignPuzzle", "Faied to load the puzzle overlay! This won't display correctly!", e);
+        }
+    }
+
     @Override
     public void puzzleLaunched(MTSInteractivePanel panel) {
         super.puzzleLaunched(panel);
@@ -49,7 +59,6 @@ public class AlignPuzzle extends Puzzle {
             controls[6] = ImageIO.read(getClass().getResourceAsStream("/cogs/control_pos7.png"));
             controls[7] = ImageIO.read(getClass().getResourceAsStream("/cogs/control_pos8.png"));
 
-            puzzle_overlay = ImageIO.read(getClass().getResourceAsStream("/images/puzzle_overlay.png"));
             star_final = ImageIO.read(getClass().getResourceAsStream("/images/stars/star-blur-5.png"));
             BufferedImageOp lookup = new LookupOp(new ColorMapper(Color.RED, new Color(54, 54, 54)), null);
             puzzle_overlay = lookup.filter(puzzle_overlay, null);

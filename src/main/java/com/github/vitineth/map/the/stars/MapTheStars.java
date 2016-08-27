@@ -3,11 +3,13 @@ package com.github.vitineth.map.the.stars;
 import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandController;
 import com.github.vitineth.map.the.stars.gameplay.level.L1;
+import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.window.MTSMainWindow;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Class Description
@@ -27,12 +29,16 @@ public class MapTheStars {
     private static MTSMainWindow mtsMainWindow;
     private static Player player;
     private static CommandController commandController = new CommandController();
+    private static HashMap<String, Level> levels = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         Log.i(LOG_NAME, "Launching " + GAME_TITLE + "/" + VERSION + "...");
         mtsMainWindow = new MTSMainWindow();
         SwingUtilities.invokeLater(() -> mtsMainWindow.setVisible(true));
-        player = new Player("Ryan", new L1());
+
+        levels.put("L1", new L1());
+
+        player = new Player("Ryan", levels.get("L1"));
         player.getRoom().enterRoom();
     }
 
@@ -46,5 +52,9 @@ public class MapTheStars {
 
     public static MTSMainWindow getMtsMainWindow() {
         return mtsMainWindow;
+    }
+
+    public static HashMap<String, Level> getLevels() {
+        return levels;
     }
 }

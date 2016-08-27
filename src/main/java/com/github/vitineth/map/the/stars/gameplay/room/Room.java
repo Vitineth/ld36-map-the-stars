@@ -5,6 +5,7 @@ import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
+import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
 
 import java.awt.image.BufferedImage;
@@ -49,7 +50,7 @@ public abstract class Room {
         setupCommands();
     }
 
-    public void enterRoom(){
+    public void enterRoom() {
         System.out.println(getDescription());
         MapTheStars.getMtsMainWindow().getInteractivePanel().setImage(getImage());
     }
@@ -86,6 +87,21 @@ public abstract class Room {
         if (getPlayer().getLevel().getRooms().containsKey(id)) {
             getPlayer().setRoom(getPlayer().getLevel().getRooms().get(id));
             getPlayer().getLevel().getRooms().get(id).enterRoom();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected boolean moveToLevel(String id, String roomID) {
+        if (MapTheStars.getLevels().containsKey(id)) {
+            getPlayer().setLevel(MapTheStars.getLevels().get(id));
+            if (MapTheStars.getLevels().get(id).getRooms().containsKey(roomID)) {
+                getPlayer().setRoom(getPlayer().getLevel().getRooms().get(roomID));
+            } else {
+                Log.w("Room/moveToLevel", "The given roomID was not valid! Defaulting to the starting room.");
+                getPlayer().setRoom(getPlayer().getLevel().getStarting());
+            }
             return true;
         } else {
             return false;

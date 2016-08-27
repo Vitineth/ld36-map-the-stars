@@ -100,6 +100,76 @@ public class L1R2 extends Room {
                 }
             }
         });
+        commands.put("(" + CommandDefaults.USE + "(LIQUID|SOLUTION|LENSE SOLUTION|LENSES SOLUTION|LENS ENHANCEMENT SOLUTION|LENS LIQUID|CHEMICAL|FEIS CHEMICAL) ON DEVICE)|(POUR LIQUID IN DEVICE)", () -> {
+            if (getPlayer().containsItem("Lens Enhancement Solution")) {
+                if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
+                    System.out.println("Shouldn't you insert all the lenses and frames before you add the liquid?");
+                } else {
+                    System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. A small amount seems to drip onto your hands but you don't pay much attention at first. Once you have finished pouring you go to wipe the liquid from your hands only to see it being absorbed by your skin. The liquid seems to turn and grimace at you. You must be imaginging it right? Nothing like that can really happen right? You head begins to spin and colours starts to fade in and out of sight in front of you. The walls begin to move and suddenly a door is revealed on the east wall. You are dragged through it by some unknown force. Something controlling you.");
+                    moveToLevel("l2", "l2r1");
+                }
+            } else {
+                System.out.println("You don't have any liquids to apply on the machine.");
+            }
+        });
+        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (FRAME(S)?) ON DEVICE|INSERT FRAME(S)? INTO DEVICE|COMBINE FRAME(S)? AND DEVICE|COMBINE FRAME(S)? WITH DEVICE|PUT FRAME(S)? IN DEVICE)", () -> {
+            if (getPlayer().containsItem("Lens Frames")) {
+                if (frameInserted[0] && frameInserted[1] && frameInserted[2]) {
+                    System.out.println("All the frames are inserted!");
+                } else {
+                    if (!frameInserted[0]) {
+                        System.out.println("One frame inserted, two to go!");
+                        frameInserted[0] = true;
+                    } else if (!frameInserted[1]) {
+                        System.out.println("Two frames inserted, one to go!");
+                        frameInserted[1] = true;
+                    } else if (!frameInserted[2]) {
+                        System.out.println("All three frames inserted!");
+                        frameInserted[2] = true;
+                    }
+                    for (Item i : getPlayer().getInventory()) {
+                        if (i.getName().equals("Lens Frames")) {
+                            i.setAmount(i.getAmount() - 1);
+                            if (i.getAmount() == 0) {
+                                getPlayer().removeItem(i);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }else{
+                System.out.println("You have no frames.");
+            }
+        });
+        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (LENS(ES)?) ON DEVICE|INSERT LENS(ES)? INTO DEVICE|COMBINE LENS(ES)? AND DEVICE|COMBINE LENS(ES)? WITH DEVICE|PUT LENS(ES)? IN DEVICE)", () -> {
+            if (getPlayer().containsItem("Lens")) {
+                if (lensInserted[0] && lensInserted[1] && lensInserted[2]) {
+                    System.out.println("All the lenss are inserted!");
+                } else {
+                    if (!lensInserted[0]) {
+                        System.out.println("One lens inserted, two to go!");
+                        lensInserted[0] = true;
+                    } else if (!lensInserted[1]) {
+                        System.out.println("Two lenss inserted, one to go!");
+                        lensInserted[1] = true;
+                    } else if (!lensInserted[2]) {
+                        System.out.println("All three lenss inserted!");
+                        lensInserted[2] = true;
+                    }
+                    for (Item i : getPlayer().getInventory()) {
+                        if (i.getName().equals("Lens")) {
+                            i.setAmount(i.getAmount() - 1);
+                            if (i.getAmount() == 0){
+                                getPlayer().removeItem(i);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }else{
+                System.out.println("You have no lenses.");
+            }
+        });
         commands.put(CommandDefaults.DOOR + "((NORTH|FORWARD|FRONT) DOOR)", () -> moveToRoom("l1r3"));
         commands.put(CommandDefaults.DOOR + "((SOUTH|BACKWARD|BACK) DOOR)", () -> moveToRoom("l1r1"));
 
