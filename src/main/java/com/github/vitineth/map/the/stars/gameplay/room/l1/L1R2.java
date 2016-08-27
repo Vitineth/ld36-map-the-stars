@@ -89,9 +89,13 @@ public class L1R2 extends Room {
                 System.out.println("The image seems to be clearer now but it's still not perfect.");
                 if (controlInserted) {
                     if (!deviceAligned) {
-                        System.out.println("You remember the control you inserted on the side of the device and begin trying to adjust the lenses.");
-                        MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlignPuzzle());
-                        deviceAligned = true;
+                        if (chemicalInserted) {
+                            System.out.println("You remember the control you inserted on the side of the device and begin trying to adjust the lenses.");
+                            MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlignPuzzle());
+                            deviceAligned = true;
+                        }else{
+                            System.out.println("You look through the lens but realise that Fei's mixture is missing. If only you could find it.");
+                        }
                     } else {
                         System.out.println("You've already lined up the device and seen the stars.");
                     }
@@ -100,13 +104,13 @@ public class L1R2 extends Room {
                 }
             }
         });
-        commands.put("(" + CommandDefaults.USE + "(LIQUID|SOLUTION|LENSE SOLUTION|LENSES SOLUTION|LENS ENHANCEMENT SOLUTION|LENS LIQUID|CHEMICAL|FEIS CHEMICAL) ON DEVICE)|(POUR LIQUID IN DEVICE)", () -> {
+        commands.put("(" + CommandDefaults.USE + "(LIQUID|SOLUTION|LENS SOLUTION|LENSES SOLUTION|LENS ENHANCEMENT SOLUTION|LENS LIQUID|CHEMICAL|FEIS CHEMICAL) ON DEVICE)|(POUR LIQUID IN DEVICE)", () -> {
             if (getPlayer().containsItem("Lens Enhancement Solution")) {
                 if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
                     System.out.println("Shouldn't you insert all the lenses and frames before you add the liquid?");
                 } else {
                     System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. ");
-                    moveToLevel("l2", "l2r1");
+                    chemicalInserted = true;
                 }
             } else {
                 System.out.println("You don't have any liquids to apply on the machine.");
@@ -150,10 +154,10 @@ public class L1R2 extends Room {
                         System.out.println("One lens inserted, two to go!");
                         lensInserted[0] = true;
                     } else if (!lensInserted[1]) {
-                        System.out.println("Two lenss inserted, one to go!");
+                        System.out.println("Two lens inserted, one to go!");
                         lensInserted[1] = true;
                     } else if (!lensInserted[2]) {
-                        System.out.println("All three lenss inserted!");
+                        System.out.println("All three lens inserted!");
                         lensInserted[2] = true;
                     }
                     for (Item i : getPlayer().getInventory()) {
