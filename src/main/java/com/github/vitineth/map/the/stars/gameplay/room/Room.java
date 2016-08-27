@@ -5,8 +5,12 @@ import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
+import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -26,9 +30,15 @@ public abstract class Room {
     private String roomName;
     private String description;
     private String roomID;
+    private BufferedImage image;
     private Level parent;
 
     public Room(String roomName, String description, String roomID, Level parent) {
+        this(roomName, description, roomID, null, parent);
+    }
+
+    public Room(String roomName, String description, String roomID, BufferedImage image, Level parent) {
+        this.image = image;
         this.roomName = roomName;
         this.description = description;
         this.roomID = roomID;
@@ -44,6 +54,7 @@ public abstract class Room {
 
     public void enterRoom(){
         System.out.println(getDescription());
+        MapTheStars.getMtsMainWindow().getInteractivePanel().setImage(getImage());
     }
 
     protected abstract void setupItems();
@@ -115,5 +126,11 @@ public abstract class Room {
         this.parent = parent;
     }
 
+    public BufferedImage getImage() {
+        return image;
+    }
 
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
 }

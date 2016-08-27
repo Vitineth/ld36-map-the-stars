@@ -4,8 +4,11 @@ import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
+import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -21,6 +24,12 @@ public class L1R1 extends Room {
 
     public L1R1(Level parent) {
         super("Bedroom", "You blink open your eyes, the fire in the corner casting the room in an almost ethereal glow. Your head pounds as you turn around in the bed and begin to sit up. You squint slightly as the pain reaches a cruchendo. You don't remember much of the night and your mind is hazy as to what you were doing. You know you must've been in this place, you haven't left for months. The room is small containing only a simple bed on which you lie, a small table next to you with a few shelves built in containing scattered papers and your diary, and a small fire in the corner that looks like its beginnign to die down. You look to your diary and you wonder whether it could shed light on last nights activities.", "L1R1", parent);
+
+        try {
+            setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r1.png")));
+        } catch (IOException e) {
+            Log.s("RoomL1R1", "Failed to load the level image! The interactive pane will be blank!");
+        }
     }
 
     @Override

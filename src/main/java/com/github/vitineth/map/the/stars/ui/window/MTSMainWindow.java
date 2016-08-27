@@ -36,7 +36,7 @@ public class MTSMainWindow extends JFrame {
     }
 
     public MTSMainWindow(int monitor) {
-        setTitle(MapTheStars.GAME_TITLE + "/" + MapTheStars.GAME_TITLE);
+        setTitle(MapTheStars.GAME_TITLE + "/" + MapTheStars.VERSION);
         setSize(getDesiredSize(monitor));
         setLocation(getBestLocation(monitor));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

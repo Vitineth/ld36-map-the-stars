@@ -27,14 +27,21 @@ public class MTSInteractivePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (image == null) {
-            g.setColor(theme.getBackground());
-            g.fillRect(0, 0, getWidth(), getHeight());
-        } else {
-            double wofh = image.getHeight() / getHeight();
-            BufferedImage scale = new BufferedImage((int) (image.getWidth() * wofh), (int) (image.getHeight() * wofh), image.getType());
+        g2d.setColor(theme.getBackground());
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+        if (image != null) {
+            double hfr = (double) getHeight() / (double) image.getHeight();
+            BufferedImage scale = new BufferedImage((int) (image.getWidth() * hfr), (int) (image.getHeight() * hfr), image.getType());
             scale.getGraphics().drawImage(image, 0, 0, scale.getWidth(), scale.getHeight(), null);
+            g2d.drawImage(scale, (getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2, null);
         }
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+        repaint();
     }
 }
