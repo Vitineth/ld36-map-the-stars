@@ -26,23 +26,17 @@ public class L2R8 extends Room {
 
     @Override
     public void enterRoom() {
-        BufferedImage n = getImage();
-        Graphics2D g = n.createGraphics();
-        Font f;
-
-        try {
-            f= Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/AMERIKA_.ttf")).deriveFont((float) g.getFont().getSize());
-        } catch (FontFormatException |IOException e) {
-            f = g.getFont();
-        }
-
-        g.setFont(f);
-        g.setFont(f.deriveFont(getBestSize("Thanks for playing", g, n.getWidth() - 70)));
-        g.drawString("Thanks for playing", 35, (n.getHeight() / 2 - 30));
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+                getPlayer().setLevel(MapTheStars.getLevels().get("L3"));
+                getPlayer().setRoom(getPlayer().getLevel().getStarting());
+                getPlayer().getRoom().enterRoom();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
         super.enterRoom();
-        MapTheStars.getMtsMainWindow().getInputArea().setLocked(true);
-        MapTheStars.getMtsMainWindow().getOutputPane().setLocked(true);
-        System.out.println("Game over! Thanks for playing!");
     }
 
     private float getBestSize(String text, Graphics g, int max) {

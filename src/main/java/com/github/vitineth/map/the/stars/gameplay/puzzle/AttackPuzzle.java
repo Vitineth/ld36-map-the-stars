@@ -33,7 +33,7 @@ public class AttackPuzzle extends Puzzle {
     private Random random;
     private HashMap<Rectangle, Callback> bounds = new HashMap<>();
     private String reviveRoom = "l1r1";
-
+    private String attackName;
     private String[] attackerHurtList;
     private String[] attackerDodgeList;
     private String attackerDeathMessage;
@@ -41,9 +41,10 @@ public class AttackPuzzle extends Puzzle {
     private String[] playerDodgeList;
     private String playerDeathMessage;
 
-    public AttackPuzzle(String reviveRoom, InputStream attackStream, int attackhp,  String[] attackerHurtList, String[] attackerDodgeList, String attackerDeathMessage, String[] playerHurtList, String[] playerDodgeList, String playerDeathMessage) {
+    public AttackPuzzle(String reviveRoom, String attackName, InputStream attackStream, int attackhp,  String[] attackerHurtList, String[] attackerDodgeList, String attackerDeathMessage, String[] playerHurtList, String[] playerDodgeList, String playerDeathMessage) {
         super(new Dimension(1920, 1080));
         this.reviveRoom = reviveRoom;
+        this.attackName = attackName;
         this.random = new Random();
         this.attackhp = attackhp;
         this.maxHP = attackhp;
@@ -71,7 +72,7 @@ public class AttackPuzzle extends Puzzle {
         {
             g.setColor(Color.WHITE);
             g.setFont(custom.deriveFont(132f));
-            g.drawString("WOLF", 78, 162);
+            g.drawString(attackName.toUpperCase(), 78, 162);
 
             g.setFont(custom.deriveFont(52f));
             g.drawString("HP: " + attackhp + "/20", 91, 284);

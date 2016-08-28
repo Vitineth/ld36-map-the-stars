@@ -1,5 +1,7 @@
 package com.github.vitineth.map.the.stars.gameplay.puzzle;
 
+import com.github.vitineth.map.the.stars.log.Log;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -7,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -122,7 +125,7 @@ public class StarMapPuzzle extends Puzzle {
             if (steps[shift]>= 6) steps[shift] = 0;
         }
         panel.repaint();
-
+        Log.d("StarMapPuzzle", Arrays.toString(steps));
         if (steps[0] == 0 && steps[1] == 0 && steps[2] == 0 && steps[3] == 0){
             panel.completePuzzle();
             panel.repaint();

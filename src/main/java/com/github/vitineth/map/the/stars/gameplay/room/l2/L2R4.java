@@ -67,6 +67,6 @@ public class L2R4 extends Room {
             puzzle.setCompleteCallback(() -> moveToRoom("l2r5"));
             MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(puzzle);
         });
-        commands.put("(" + CommandDefaults.EXIT.getRegex() + ")|(" + CommandDefaults.DOOR + "(SOUTH|BOTTOM|BACK|EXIT|BACKWARDS) DOOR", () -> System.out.println("Your exit is blocked by some strange looking device. Maybe you should take a look"));
+        commands.put("(" + CommandDefaults.EXIT.getRegex() + ")|(" + CommandDefaults.DOOR + "(SOUTH|BOTTOM|BACK|EXIT|BACKWARDS) DOOR)", () -> System.out.println("Your exit is blocked by some strange looking device. Maybe you should take a look"));
     }
 }

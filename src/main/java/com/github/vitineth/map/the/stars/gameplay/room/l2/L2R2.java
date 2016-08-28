@@ -25,7 +25,7 @@ public class L2R2 extends Room {
     @Override
     public void enterRoom() {
         super.enterRoom();
-        MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AttackPuzzle("l2r1", getClass().getResourceAsStream("/combat/combat.wolf.png"), 20,
+        MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AttackPuzzle("l2r1","Wolf", getClass().getResourceAsStream("/combat/combat.wolf.png"), 20,
                 new String[]{"You swipe at the wolf and catch it slightly. It whimpers in pain but anger fills its eyes", "Your dagger makes contact with the wolf, tearing roughly through its flesh. Blood trickles out mixing with its fur turning it a deep shade of red making the wolf look almost demonic.", "You go to slice at the wolf but it tries to move, instead your hand makes contact with the wolf, its head whips sideways from the impact."},
                 new String[]{"You go to attack the wolf but it dodges!", "The wolf sees you getting ready to attack and sprints sideways with incredible speed. Caught in the momentum, you trip forward and miss the attack.", "The wolf jumps at the same time you go to attack and misses the blade by mere centimetres."},
                 "You manage to kill the wolf, its corpse falls to the ground heavily, blood pooling around its head, mixing with its fur tainting it red.",

@@ -50,12 +50,13 @@ public class L1R6 extends Room {
     protected void setupCommands() {
         commands.put(CommandDefaults.PICK_UP + "BOTTLE(S)?", () -> System.out.println("you don't trust yourself to pick up the correct bottle without knowing what Fei has said or written."));
         commands.put(CommandDefaults.PICK_UP + "POT(S)?", () -> System.out.println("you don't trust yourself to pick up the correct pot without knowing what Fei ahs said or written."));
-        commands.put(CommandDefaults.INSPECT + "(NOTE(S)?|PAPER(S)?|WRITING(S)?)", () -> {
+        commands.put("((" + CommandDefaults.INSPECT + ")|(READ ))" + "(NOTE(S)?|PAPER(S)?|WRITING(S)?)", () -> {
             if (puzzleComplete) {
                 System.out.println("You've already looked over the papers and completed Fei's instructions.");
             } else {
                 System.out.println("the notes are filled with various equations and formulas, presumably how to make various mixtures and recipes. Towards the bottom of the second page is a recipe titled 'Lens enhancement solution' ");
                 MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlchemyPuzzle());
+                puzzleComplete = true;
             }
         });
         commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l1r4"));

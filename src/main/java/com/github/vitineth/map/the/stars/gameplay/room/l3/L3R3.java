@@ -105,7 +105,14 @@ public class L3R3 extends Room {
 
     @Override
     protected void setupCommands() {
-        commands.put("(TALK( WITH| TO| AT)?|INTERACT( WITH| TO| AT)?|CONVERSE( WITH| TO| AT)?)|(" + CommandDefaults.USE + ")|(" + CommandDefaults.INSPECT + ")( KIND| EMPEROR| MAN| THRONE| PERSON)?", () -> {
+        System.out.println(CommandDefaults.USE.getRegex().substring(0, CommandDefaults.USE.getRegex().length() - 1));
+        commands.put(CommandDefaults.USE.getRegex() + "(KING|EMPEROR|MAN|THRONE|PERSON)", () -> {
+            MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new ChatPuzzle(manager));
+        });
+        commands.put(CommandDefaults.INSPECT.getRegex() + "(KING|EMPEROR|MAN|THRONE|PERSON)", () -> {
+            MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new ChatPuzzle(manager));
+        });
+        commands.put("(TALK|INTERACT|CONVERSE)( WITH| TO| AT)?( KING| EMPEROR| MAN| THRONE| PERSON)", () -> {
             MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new ChatPuzzle(manager));
         });
     }
