@@ -18,7 +18,7 @@ public class L1R5 extends Room {
 
     public L1R5(Level parent) {
         super("Metal Forge", "The door opens up into a massive room with large bloomeries scattered around the room. This is Fei's domain. Around the edge of the room lies large lumps of ore, dug up from the nearby mines or bought on some of his travels. On the table nearest the door lies a couple of tools and materials that look like they could be of use. Towards the back of the room one of the bloomeries is still burning.", "l1r5", parent);
-
+tryImageLoad();
     }
 
     @Override

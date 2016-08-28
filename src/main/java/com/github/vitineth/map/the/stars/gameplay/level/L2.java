@@ -20,8 +20,9 @@ public class L2 extends Level{
         new L2R2(this);
         new L2R3(this);
         new L2R4(this);
-        new L2R7(this);
         new L2R5(this);
+        new L2R6(this);
+        new L2R7(this);
         new L2R8(this);
     }
 }

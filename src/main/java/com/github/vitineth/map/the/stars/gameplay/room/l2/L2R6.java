@@ -17,7 +17,7 @@ import com.github.vitineth.map.the.stars.gameplay.room.Room;
 public class L2R6 extends Room{
 
     public L2R6(Level parent) {
-        super("Hallucination Metal Forge", "The door opens up into a massive room with large bloomeries scattered around the room. This is Fei's domain. Around the edge of the room lies large lumps of ore, dug up from the nearby mines or bought on some of his travels. The room is similarly as you left it but none of the furnaces seem to be burning.", "l1r5", parent);
+        super("Hallucination Metal Forge", "The door opens up into a massive room with large bloomeries scattered around the room. This is Fei's domain. Around the edge of the room lies large lumps of ore, dug up from the nearby mines or bought on some of his travels. The room is similarly as you left it but none of the furnaces seem to be burning.", "l1r6", parent);
         tryImageLoad();
     }
 

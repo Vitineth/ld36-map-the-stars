@@ -16,7 +16,7 @@ import com.github.vitineth.map.the.stars.gameplay.room.Room;
 public class L2R5 extends Room {
 
     public L2R5(Level parent) {
-        super("Hallucination Passage", "The passage way is empty as usual but an unnatural breeze rolls through with the torches flickering in the breeze, two of which blow out.", "l2r6", parent);
+        super("Hallucination Passage", "The passage way is empty as usual but an unnatural breeze rolls through with the torches flickering in the breeze, two of which blow out.", "l2r5", parent);
         tryImageLoad();
     }
 
@@ -34,10 +34,10 @@ public class L2R5 extends Room {
     protected void setupCommands() {
 
         commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", () -> {
-            moveToRoom("l24");
+            moveToRoom("l2r4");
         });
         commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", () -> {
-            moveToRoom("l2r5");
+            moveToRoom("l2r6");
         });
         commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l2r7"));
     }
