@@ -22,12 +22,7 @@ public class L1R4 extends Room {
 
     public L1R4(Level parent) {
         super("Glass Forgery", "You enter into a large room that Fei uses to produce the glass lenses. The walls are crafted from the same stone and rammed earth materials that the rest of the facility is made from. It contains a few furnaces littered around the room with channels carved into the ground for the molten glass to collect in when not used. Various casts rest against the wall to the west. Your attention is more drawn to the large wooden table in the centre of the room. You see the flash of reflected light as you step in and guess that Fei has finally finished the lenses he's been promising. The room radiates heat and you can feel the residual warmth of the furnaces lingering in the room.", "l1r4", parent);
-
-        try {
-            setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r4.png")));
-        } catch (IOException e) {
-            Log.s("RoomL1R4", "Failed to load the level image! The interactive pane will be blank!", e);
-        }
+        tryImageLoad();
     }
 
     @Override

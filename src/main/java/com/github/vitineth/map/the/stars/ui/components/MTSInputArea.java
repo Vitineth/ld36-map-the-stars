@@ -28,6 +28,7 @@ public class MTSInputArea extends JTextArea {
         setBorder(new EmptyBorder(5, 5, 5, 5));
         setText(">> ");
         setCaretPosition(3);
+        setCaretColor(theme.getForeground());
         addKeyListener(new KeyAdapter() {
 
             @Override

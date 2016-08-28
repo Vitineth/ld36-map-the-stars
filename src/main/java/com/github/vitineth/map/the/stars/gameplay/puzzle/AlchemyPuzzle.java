@@ -197,7 +197,7 @@ public class AlchemyPuzzle extends Puzzle {
                 return;
             }
         }
-        System.out.println("   " + mixture.get(mixture.size() - 1).getAmount() + " drops");
+        System.out.println("   " + mixture.get(mixture.size() - 1 < 0 ? 0 : mixture.size() - 1).getAmount() + " drops");
         if (mixture.size() < correct.size() && correct.get(mixture.size() - 1).getAmount() == mixture.get(mixture.size() - 1).getAmount()) {
             System.out.println(correct.get(mixture.size()).getAmount() + " drops of " + correct.get(mixture.size()).getCircle().getCircleID());
         }

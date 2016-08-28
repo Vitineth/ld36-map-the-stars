@@ -3,6 +3,7 @@ package com.github.vitineth.map.the.stars;
 import com.github.vitineth.map.the.stars.gameplay.Player;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandController;
 import com.github.vitineth.map.the.stars.gameplay.level.L1;
+import com.github.vitineth.map.the.stars.gameplay.level.L2;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.window.MTSMainWindow;
@@ -33,10 +34,11 @@ public class MapTheStars {
 
     public static void main(String[] args) throws IOException {
         Log.i(LOG_NAME, "Launching " + GAME_TITLE + "/" + VERSION + "...");
-        mtsMainWindow = new MTSMainWindow();
+        mtsMainWindow = new MTSMainWindow(1);
         SwingUtilities.invokeLater(() -> mtsMainWindow.setVisible(true));
 
         levels.put("L1", new L1());
+        levels.put("L2", new L2());
 
         player = new Player("Ryan", levels.get("L1"));
         player.getRoom().enterRoom();
@@ -58,3 +60,4 @@ public class MapTheStars {
         return levels;
     }
 }
+
