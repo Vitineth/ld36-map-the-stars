@@ -1,9 +1,6 @@
 package com.github.vitineth.map.the.stars.gameplay.level;
 
-import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.gameplay.room.l2.*;
-
-import java.util.HashMap;
 
 /**
  * Class Description
@@ -23,8 +20,8 @@ public class L2 extends Level{
         new L2R2(this);
         new L2R3(this);
         new L2R4(this);
-        new L2R5(this);
-        new L2R6(this);
         new L2R7(this);
+        new L2R5(this);
+        new L2R8(this);
     }
 }
