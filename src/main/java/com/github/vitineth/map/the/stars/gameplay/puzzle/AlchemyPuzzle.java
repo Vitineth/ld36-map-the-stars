@@ -222,6 +222,16 @@ public class AlchemyPuzzle extends Puzzle {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
 
 class Circle {
@@ -312,4 +322,6 @@ class Mixture {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+
 }

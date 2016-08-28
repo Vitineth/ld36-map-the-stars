@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -19,7 +20,7 @@ import java.awt.image.BufferedImage;
  * @author Ryan (vitineth)
  * @since 27/08/2016
  */
-public class MTSInteractivePanel extends JPanel implements MouseListener {
+public class MTSInteractivePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private BufferedImage image;
     private Theme theme;
@@ -32,6 +33,7 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         this.theme = theme;
         enableInputMethods(true);
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     @Override
@@ -116,6 +118,16 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         if (puzzle != null) mapInput(e, "exit");
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (puzzle != null) mapInput(e, "drag");
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if (puzzle != null) mapInput(e, "move");
+    }
+
     private void mapInput(MouseEvent e, String type) {
         int drawX = clickOffset[0];
         int drawY = clickOffset[1];
@@ -140,6 +152,8 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
             if (type.equals("release")) puzzle.mouseReleased(event);
             if (type.equals("enter")) puzzle.mouseEntered(event);
             if (type.equals("exit")) puzzle.mouseExited(event);
+            if (type.equals("moved")) puzzle.mouseMoved(event);
+            if (type.equals("drag")) puzzle.mouseDragged(event);
         }
     }
 

@@ -7,6 +7,7 @@ import com.github.vitineth.map.the.stars.util.Callback;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -18,7 +19,7 @@ import java.awt.image.BufferedImage;
  * @author Ryan (vitineth)
  * @since 27/08/2016
  */
-public abstract class Puzzle implements MouseListener, KeyListener {
+public abstract class Puzzle implements MouseListener, KeyListener, MouseMotionListener {
 
     protected MTSInteractivePanel panel;
     protected Dimension drawSize;
