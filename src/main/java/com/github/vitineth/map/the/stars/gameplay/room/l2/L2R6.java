@@ -1,7 +1,6 @@
 package com.github.vitineth.map.the.stars.gameplay.room.l2;
 
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
-import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 
@@ -28,7 +27,7 @@ public class L2R6 extends Room{
     @Override
     protected void setupDescriptions() {
         descriptions.put("ORE(S)?", "the lumps of are a dumped randomly in the corner of the room, the ground seems strain under their weight as the rammed earth compresses slightly. ");
-        descriptions.put("TOOL(S)?", "the tools are various crafting tools, rudimentary hammers and some intruments to help with the casting process.");
+        descriptions.put("TOOL(S)?", "the tools are various crafting tools, rudimentary hammers and some instruments to help with the casting process.");
         descriptions.put("(BLOOMER(IES|Y))|FURNACE(S)?", "All of the bloomeries are cold to the touch, one even feels like touching pure ice. They were burning just a little bit earlier weren't they? Something isn't right about this place.");
     }
 

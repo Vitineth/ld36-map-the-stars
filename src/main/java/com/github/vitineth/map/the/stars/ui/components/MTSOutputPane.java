@@ -4,7 +4,6 @@ import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.ui.theme.Theme;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTextUI;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.Style;

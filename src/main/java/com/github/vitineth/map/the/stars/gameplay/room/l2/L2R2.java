@@ -1,13 +1,10 @@
 package com.github.vitineth.map.the.stars.gameplay.room.l2;
 
 import com.github.vitineth.map.the.stars.MapTheStars;
-import com.github.vitineth.map.the.stars.gameplay.command.CommandController;
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.puzzle.AttackPuzzle;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
-
-import java.util.Arrays;
 
 /**
  * Class Description

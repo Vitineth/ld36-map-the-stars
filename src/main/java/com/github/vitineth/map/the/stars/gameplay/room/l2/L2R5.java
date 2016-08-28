@@ -33,12 +33,8 @@ public class L2R5 extends Room {
     @Override
     protected void setupCommands() {
 
-        commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", () -> {
-            moveToRoom("l2r4");
-        });
-        commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", () -> {
-            moveToRoom("l2r6");
-        });
+        commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", () -> moveToRoom("l2r4"));
+        commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", () -> moveToRoom("l2r6"));
         commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l2r7"));
     }
 }

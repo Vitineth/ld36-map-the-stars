@@ -41,12 +41,8 @@ public class L1R3 extends Room {
 
     @Override
     protected void setupCommands() {
-        commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", () -> {
-            moveToRoom("l1r4");
-        });
-        commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", () -> {
-            moveToRoom("l1r5");
-        });
+        commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", () -> moveToRoom("l1r4"));
+        commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", () -> moveToRoom("l1r5"));
         commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l1r2"));
     }
 }

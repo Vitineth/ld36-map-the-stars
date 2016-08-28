@@ -2,9 +2,7 @@ package com.github.vitineth.map.the.stars.gameplay.level;
 
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Class Description

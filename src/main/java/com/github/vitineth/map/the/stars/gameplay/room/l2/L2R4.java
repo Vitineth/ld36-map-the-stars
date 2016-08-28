@@ -25,7 +25,7 @@ public class L2R4 extends Room {
     private BufferedImage fire;
 
     public L2R4(Level parent) {
-        super("Hallucination glasswork", "you stumble out, checking behind you for any more serpents but the room seems clear all of a sudden. the glassworking room seems normal to begin with but something seems off about the furnaces. The room seems to be how you left it, there are no lenses or bag next to the table but you can tell that something isn't quite right. Is it your mind playing tricks on you? ", "l2r4", parent);
+        super("Hallucination Glass Work", "you stumble out, checking behind you for any more serpents but the room seems clear all of a sudden. the glass working room seems normal to begin with but something seems off about the furnaces. The room seems to be how you left it, there are no lenses or bag next to the table but you can tell that something isn't quite right. Is it your mind playing tricks on you? ", "l2r4", parent);
         tryImageLoad();
         try {
             fire = ImageIO.read(getClass().getResourceAsStream("/rooms/l2r4-f.png"));

@@ -30,7 +30,7 @@ public class L2R1 extends Room {
     private BufferedImage def;
 
     public L2R1(Level parent) {
-        super("Hallucination Cell", "The world materialises around you yet theres a sort of ethereal shimmer. Your head pounds as the rooms swims into sight. You find yourself in a stone cell arms tied firmly behind your back. Rough metal bars stand between you and a door you see to the east yet one of the bars doesn't look quite right. Nothing  sits inside the cell but next to the door you see a small dagger.", "l2r1", parent);
+        super("Hallucination Cell", "The world materialises around you yet there's a sort of ethereal shimmer. Your head pounds as the rooms swims into sight. You find yourself in a stone cell arms tied firmly behind your back. Rough metal bars stand between you and a door you see to the east yet one of the bars doesn't look quite right. Nothing  sits inside the cell but next to the door you see a small dagger.", "l2r1", parent);
         tryImageLoad();
         def = getImage();
 

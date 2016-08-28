@@ -27,6 +27,7 @@ public class AttackPuzzle extends Puzzle {
 
     private int localhp = 20;
     private int attackhp = 20;
+    private int maxHP;
     private Font custom = new Font(Font.SANS_SERIF, Font.PLAIN, 24);
     private BufferedImage attacker;
     private Random random;
@@ -45,6 +46,7 @@ public class AttackPuzzle extends Puzzle {
         this.reviveRoom = reviveRoom;
         this.random = new Random();
         this.attackhp = attackhp;
+        this.maxHP = attackhp;
         this.attackerHurtList = attackerHurtList;
         this.attackerDodgeList = attackerDodgeList;
         this.attackerDeathMessage = attackerDeathMessage;
@@ -74,40 +76,31 @@ public class AttackPuzzle extends Puzzle {
             g.setFont(custom.deriveFont(52f));
             g.drawString("HP: " + attackhp + "/20", 91, 284);
 
-            drawHPBar(attackhp, 20, 93, 310, 760, 50, g);
+            drawHPBar(attackhp, maxHP, 93, 310, 760, 50, g);
 
             g.drawString("ATTACK", 92, 446);
-            bounds.put(new Rectangle(92, 446 - 70, g.getFontMetrics().charsWidth("ATTACK".toCharArray(), 0, 6), 70), new Callback() {
-                @Override
-                public void callback() {
-                    if (random.nextInt(3) != 0) {
-                        //Success
-                        System.out.println(attackerHurtList[random.nextInt(attackerHurtList.length)]);
-                        attackhp -= random.nextInt(5) + 1;
-                    } else {
-                        System.out.println(attackerDodgeList[random.nextInt(attackerDodgeList.length)]);
-                    }
-                    simulateDogAttack();
-                    update();
+            bounds.put(new Rectangle(92, 446 - 70, g.getFontMetrics().charsWidth("ATTACK".toCharArray(), 0, 6), 70), () -> {
+                if (random.nextInt(3) != 0) {
+                    //Success
+                    System.out.println(attackerHurtList[random.nextInt(attackerHurtList.length)]);
+                    attackhp -= random.nextInt(5) + 1;
+                } else {
+                    System.out.println(attackerDodgeList[random.nextInt(attackerDodgeList.length)]);
                 }
+                simulateDogAttack();
+                update();
             });
             g.drawString("RUN", 92, 516);
-            bounds.put(new Rectangle(92, 516 - 70, g.getFontMetrics().charsWidth("RUN".toCharArray(), 0, 3), 70), new Callback() {
-                @Override
-                public void callback() {
-                    System.out.println("You try to run away but the animal quickly catches up and attacks");
-                    simulateDogAttack();
-                    update();
-                }
+            bounds.put(new Rectangle(92, 516 - 70, g.getFontMetrics().charsWidth("RUN".toCharArray(), 0, 3), 70), () -> {
+                System.out.println("You try to run away but the animal quickly catches up and attacks");
+                simulateDogAttack();
+                update();
             });
             g.drawString("HIDE", 92, 586);
-            bounds.put(new Rectangle(92, 586 - 70, g.getFontMetrics().charsWidth("HIDE".toCharArray(), 0, 4), 70), new Callback() {
-                @Override
-                public void callback() {
-                    System.out.println("You try to run and hide but the animal searches you out and begins to attack.");
-                    simulateDogAttack();
-                    update();
-                }
+            bounds.put(new Rectangle(92, 586 - 70, g.getFontMetrics().charsWidth("HIDE".toCharArray(), 0, 4), 70), () -> {
+                System.out.println("You try to run and hide but the animal searches you out and begins to attack.");
+                simulateDogAttack();
+                update();
             });
 
             g.drawString("YOUR HP: " + localhp + "/20", 90, 825);

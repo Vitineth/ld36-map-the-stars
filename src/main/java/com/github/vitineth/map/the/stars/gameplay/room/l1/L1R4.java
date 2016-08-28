@@ -4,10 +4,6 @@ import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
-import com.github.vitineth.map.the.stars.log.Log;
-
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 /**
  * Class Description
@@ -34,7 +30,7 @@ public class L1R4 extends Room {
     protected void setupDescriptions() {
         descriptions.put("FURNACE", "you can feel the raw heat of the furnaces as you approach them. You can tell that they've been off for a few hours but even still they retain the heat. Cooled glass sticks against the output chute where Fei has emptied its contents into a mould.");
         descriptions.put("CHANNELS", "the channels are shallow grooves cut into the ground to collect any unnecessary glass that still remains in the furnaces once everything has been produced. Small fragments of glass litter them where Fei has chipped away the left over glass to use it again.");
-        descriptions.put("MOULDS|CASTS", "the moulds rest heavily against the west wall crafted from hardened wootz steel. The craftsmanship has to be admired with the near perfect curves to make the best lenses possible. There has been so much time and effort places into this endeavour, you will not lose, you remind yourself.");
+        descriptions.put("MOULDS|CASTS", "the moulds rest heavily against the west wall crafted from hardened Wootz steel. The craftsmanship has to be admired with the near perfect curves to make the best lenses possible. There has been so much time and effort places into this endeavour, you will not lose, you remind yourself.");
         descriptions.put("LENS(ES)?", "The lenses are quite large, about the size fo your forearm and sit almost haphazardly on the table. The legs strain slightly under their weight but remarkable manages to keep them up. They look about the right size to fit into the device in the main room.");
         descriptions.put("TABLE", "the table contains the standard clutter of papers and three large lenses. The wood it chipped in places with splinters sticking out dangerously. The legs are bending slightly under the weight of its load but it stands firm.");
     }

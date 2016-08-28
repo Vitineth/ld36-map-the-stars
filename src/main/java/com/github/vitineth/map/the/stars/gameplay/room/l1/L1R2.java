@@ -7,7 +7,6 @@ import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.puzzle.AlignPuzzle;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.log.Log;
-import com.github.vitineth.map.the.stars.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class L1R2 extends Room {
     private boolean deviceAligned = false;
 
     public L1R2(Level parent) {
-        super("Main Room", "You enter into a large room crafted of stone and rammed earth. The walls are rather bleak but have been covered in places with paper bearing scriblings of equations and designs. The sides of the rooms are bordered with tables which are covered in various bits of metal, glass, wood and gadgets. Some looks highly complex with various pieces locking into one another. The center of the room houses the most important instrument. A large cylinder shaped device is attached to a stand, one side pointing towards the skies through the only open portion of the building. There is one door to the side north of the room, inlaid slightly into the wall.", "l1r2", parent);
+        super("Main Room", "You enter into a large room crafted of stone and rammed earth. The walls are rather bleak but have been covered in places with paper bearing scribblings of equations and designs. The sides of the rooms are bordered with tables which are covered in various bits of metal, glass, wood and gadgets. Some looks highly complex with various pieces locking into one another. The center of the room houses the most important instrument. A large cylinder shaped device is attached to a stand, one side pointing towards the skies through the only open portion of the building. There is one door to the side north of the room, inlaid slightly into the wall.", "l1r2", parent);
 
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r2.png")));
@@ -42,14 +41,14 @@ public class L1R2 extends Room {
 
     @Override
     protected void setupItems() {
-        items.put("GADGET", new Item("Unknown Gadget", 1, "The gadget seems to made of a mix of metal and wood crafted together to form what looks almost like a control. There is a small cog to the side that moves some of the interal pieces as it is turned. It is of a unique hexagonal shape that doesn't seem to match anything on the table."));
+        items.put("GADGET", new Item("Unknown Gadget", 1, "The gadget seems to made of a mix of metal and wood crafted together to form what looks almost like a control. There is a small cog to the side that moves some of the internal pieces as it is turned. It is of a unique hexagonal shape that doesn't seem to match anything on the table."));
     }
 
     @Override
     protected void setupDescriptions() {
-        descriptions.put("DEVICE", "The device in the center of the room is impressive in scale, reaching up towards the roof. It is one big cylindrical shape with slots carved into the side. It is made of a mix of wood and metal expertly mixed together. It rests heavily in a frame which is burried deep into the ground which allows it to move and swivel with the help of some controls attached to the side, each slotting into a hexagonal hole along the side. There seems to be one hole in the side in the same shape of the controls along the bottom of the device. Along the bottom at around shoulder height, there is a small section sticking out with a piece of glass sat just inside. It looks like you would look through it.");
+        descriptions.put("DEVICE", "The device in the center of the room is impressive in scale, reaching up towards the roof. It is one big cylindrical shape with slots carved into the side. It is made of a mix of wood and metal expertly mixed together. It rests heavily in a frame which is buried deep into the ground which allows it to move and swivel with the help of some controls attached to the side, each slotting into a hexagonal hole along the side. There seems to be one hole in the side in the same shape of the controls along the bottom of the device. Along the bottom at around shoulder height, there is a small section sticking out with a piece of glass sat just inside. It looks like you would look through it.");
         descriptions.put("TABLE(S)?", "The tables are nothing special, made out of various types of wood. On the top lies a collection of raw materials and an intricate gadget.");
-        descriptions.put("PAPER|PARCHMENT", "Just like the bedroom, there is paper scattered around the room with almost unreadable scribblings and equations emblazened across it. There doesn't seem to be anything work reading on them so you place them back down.");
+        descriptions.put("PAPER|PARCHMENT", "Just like the bedroom, there is paper scattered around the room with almost unreadable scribblings and equations emblazoned across it. There doesn't seem to be anything work reading on them so you place them back down.");
         descriptions.put("ROOF|SKY", " The roof splits open down the center revealing the night sky shining above you, the device in the center of the room points directly through the gap.");
     }
 
@@ -127,7 +126,7 @@ public class L1R2 extends Room {
                     } else if (!frameInserted[1]) {
                         System.out.println("Two frames inserted, one to go!");
                         frameInserted[1] = true;
-                    } else if (!frameInserted[2]) {
+                    } else {
                         System.out.println("All three frames inserted!");
                         frameInserted[2] = true;
                     }
@@ -148,7 +147,7 @@ public class L1R2 extends Room {
         commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (LENS(ES)?) ON DEVICE|INSERT LENS(ES)? INTO DEVICE|COMBINE LENS(ES)? AND DEVICE|COMBINE LENS(ES)? WITH DEVICE|PUT LENS(ES)? IN DEVICE)", () -> {
             if (getPlayer().containsItem("Lens")) {
                 if (lensInserted[0] && lensInserted[1] && lensInserted[2]) {
-                    System.out.println("All the lenss are inserted!");
+                    System.out.println("All the lenses are inserted!");
                 } else {
                     if (!lensInserted[0]) {
                         System.out.println("One lens inserted, two to go!");
@@ -156,7 +155,7 @@ public class L1R2 extends Room {
                     } else if (!lensInserted[1]) {
                         System.out.println("Two lens inserted, one to go!");
                         lensInserted[1] = true;
-                    } else if (!lensInserted[2]) {
+                    } else  {
                         System.out.println("All three lens inserted!");
                         lensInserted[2] = true;
                     }

@@ -42,7 +42,7 @@ public class L1R6 extends Room {
     @Override
     protected void setupDescriptions() {
         descriptions.put("TABLE", "the table contains all the work that Fei has done. To one side there is a collection of bottles, some half spilt and some places within a small stand to keep them upright. To the other side of the table is a collection of pots containing various coloured liquids. In the center of the table is the main collection of paper with various sections circled.");
-        descriptions.put("BOTTLES", "the bottles seem to almost contain a rainbow when places next to one another. Various mixtures in ranges of different colours with unkown properties sit idly inside. You feel a sense of dread looking at them, you have no idea what any of these mixtures could do if handled wrong. This is Fei's domain.");
+        descriptions.put("BOTTLES", "the bottles seem to almost contain a rainbow when places next to one another. Various mixtures in ranges of different colours with unknown properties sit idly inside. You feel a sense of dread looking at them, you have no idea what any of these mixtures could do if handled wrong. This is Fei's domain.");
         descriptions.put("POTS", "the pots seem to contain much darker liquids than those in the bottles. Even still, they fill you with trepidation at what they could do if you use them wrong.");
     }
 
@@ -58,8 +58,6 @@ public class L1R6 extends Room {
                 MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlchemyPuzzle());
             }
         });
-        commands.put(CommandDefaults.EXIT.getRegex(), () -> {
-            moveToRoom("l1r4");
-        });
+        commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l1r4"));
     }
 }

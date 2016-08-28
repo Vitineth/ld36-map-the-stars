@@ -16,7 +16,7 @@ import com.github.vitineth.map.the.stars.gameplay.room.Room;
 public class L2R7 extends Room {
 
     public L2R7(Level parent) {
-        super("Hallucination Main Room", "like the rest of the rooms in the facility, something seems off about the main room. It doesn't strike you at first but for some reason all the papers scattered around the room seem to be facing the same direcion. You rub your eyes, sure that you are simply imagining this, that it's just a bad dream but as you blink a few times the room stays the same. The device in the middle of the room also seems to be orientated differently, pointing to a random point of the sky. Who could have done this? Is Fei back? Is he just playing a prank? That must be it...", "l2r7", parent);
+        super("Hallucination Main Room", "like the rest of the rooms in the facility, something seems off about the main room. It doesn't strike you at first but for some reason all the papers scattered around the room seem to be facing the same direction. You rub your eyes, sure that you are simply imagining this, that it's just a bad dream but as you blink a few times the room stays the same. The device in the middle of the room also seems to be orientated differently, pointing to a random point of the sky. Who could have done this? Is Fei back? Is he just playing a prank? That must be it...", "l2r7", parent);
         tryImageLoad();
     }
 

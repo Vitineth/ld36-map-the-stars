@@ -22,11 +22,16 @@ public class StarMapPuzzle extends Puzzle {
 
     private BufferedImage base;
     private BufferedImage[] cogs;
-    private int rotationStep = 360 / 6;
+    private int rotationStep;
     private int[] steps = new int[4];
 
-    public StarMapPuzzle() {
+    public StarMapPuzzle(){
+        this(6);
+    }
+
+    public StarMapPuzzle(int rotationSteps) {
         super(new Dimension(1920, 1080));
+        this.rotationStep = 360 / rotationSteps;
         try {
             base = ImageIO.read(getClass().getResourceAsStream("/images/rotation/star-cog-base.png"));
             setSize(new Dimension(base.getWidth(), base.getHeight()));
