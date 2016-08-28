@@ -5,9 +5,11 @@ import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.log.Log;
+import com.github.vitineth.map.the.stars.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Class Description
@@ -45,23 +47,51 @@ public class L1R1 extends Room {
 
     @Override
     protected void setupCommands() {
-        commands.put(CommandDefaults.INSPECT.getRegex() + "(RING OF )?KEY(S)?", () -> System.out.println(items.get("KEYS").getDescription()));
-        commands.put(CommandDefaults.PICK_UP.getRegex() + "(RING OF )?KEY(S)?", () -> {
-            if (items.containsKey("KEYS")) {
-                getPlayer().addItem(items.get("KEYS"));
-                items.remove("KEYS");
-                System.out.println("You pick up the keys.");
-            } else {
-                System.err.println("There are no keys to pick up!");
+        commands.put(CommandDefaults.INSPECT.getRegex() + "(RING OF )?KEY(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println(items.get("KEYS").getDescription());
+            }
+        });
+        commands.put(CommandDefaults.PICK_UP.getRegex() + "(RING OF )?KEY(S)?", new Callback() {
+            @Override
+            public void callback() {
+                if (items.containsKey("KEYS")) {
+                    getPlayer().addItem(items.get("KEYS"));
+                    items.remove("KEYS");
+                    System.out.println("You pick up the keys.");
+                } else {
+                    System.err.println("There are no keys to pick up!");
+                }
             }
         });
 
-        for (String key : descriptions.keySet()) {
-            commands.put(CommandDefaults.INSPECT + key, () -> System.out.println(descriptions.get(key)));
+        for (final String key : descriptions.keySet()) {
+            commands.put(CommandDefaults.INSPECT + key, new Callback() {
+                @Override
+                public void callback() {
+                    System.out.println(descriptions.get(key));
+                }
+            });
         }
-        commands.put(CommandDefaults.PICK_UP + "(DIARY|BOOK|LEATHER BOUND BOOK)", () -> System.out.println("You don't think you'll need your diary at this point and decide against picking it up."));
-        commands.put(CommandDefaults.PICK_UP + "(NOTE|PAPER)", () -> System.out.println("You can think of no use for this note and decide against picking itup."));
-        commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l1r2"));
+        commands.put(CommandDefaults.PICK_UP + "(DIARY|BOOK|LEATHER BOUND BOOK)", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("You don't think you'll need your diary at this point and decide against picking it up.");
+            }
+        });
+        commands.put(CommandDefaults.PICK_UP + "(NOTE|PAPER)", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("You can think of no use for this note and decide against picking itup.");
+            }
+        });
+        commands.put(CommandDefaults.EXIT.getRegex(), new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r2");
+            }
+        });
     }
 
 }

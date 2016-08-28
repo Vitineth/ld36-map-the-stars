@@ -136,20 +136,23 @@ public class AlignPuzzle extends Puzzle {
             if (controlIndex % 2 == 0) {
                 starIndex++;
                 if (starIndex == 3) {
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(500);
-                            starIndex = 4;
-                            panel.repaint();
-                            Thread.sleep(500);
-                            System.out.println("A small amount seems to drip onto your hands but you don't pay much attention at first. Once you have finished looking you go to wipe the liquid from your hands only to see it being absorbed by your skin. The liquid seems to turn and grimace at you. You must be imaginging it right? Nothing like that can really happen right? You head begins to spin and colours starts to fade in and out of sight in front of you. The walls begin to move and suddenly a door is revealed on the east wall. You are dragged through it by some unknown force. Something controlling you.");
-                            panel.completePuzzle();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                                starIndex = 4;
+                                panel.repaint();
+                                Thread.sleep(500);
+                                System.out.println("A small amount seems to drip onto your hands but you don't pay much attention at first. Once you have finished looking you go to wipe the liquid from your hands only to see it being absorbed by your skin. The liquid seems to turn and grimace at you. You must be imaginging it right? Nothing like that can really happen right? You head begins to spin and colours starts to fade in and out of sight in front of you. The walls begin to move and suddenly a door is revealed on the east wall. You are dragged through it by some unknown force. Something controlling you.");
+                                panel.completePuzzle();
 
-                            MapTheStars.getPlayer().setLevel(MapTheStars.getLevels().get("L2"));
-                            MapTheStars.getPlayer().setRoom(MapTheStars.getPlayer().getLevel().getStarting());
-                            MapTheStars.getPlayer().getRoom().enterRoom();
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
+                                MapTheStars.getPlayer().setLevel(MapTheStars.getLevels().get("L2"));
+                                MapTheStars.getPlayer().setRoom(MapTheStars.getPlayer().getLevel().getStarting());
+                                MapTheStars.getPlayer().getRoom().enterRoom();
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     }).start();
                 }

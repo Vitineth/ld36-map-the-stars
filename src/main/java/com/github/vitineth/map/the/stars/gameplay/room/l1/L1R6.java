@@ -7,6 +7,7 @@ import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.puzzle.AlchemyPuzzle;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.log.Log;
+import com.github.vitineth.map.the.stars.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -48,18 +49,30 @@ public class L1R6 extends Room {
 
     @Override
     protected void setupCommands() {
-        commands.put(CommandDefaults.PICK_UP + "BOTTLE(S)?", () -> System.out.println("you don't trust yourself to pick up the correct bottle without knowing what Fei has said or written."));
-        commands.put(CommandDefaults.PICK_UP + "POT(S)?", () -> System.out.println("you don't trust yourself to pick up the correct pot without knowing what Fei ahs said or written."));
-        commands.put(CommandDefaults.INSPECT + "(NOTE(S)?|PAPER(S)?|WRITING(S)?)", () -> {
-            if (puzzleComplete) {
-                System.out.println("You've already looked over the papers and completed Fei's instructions.");
-            } else {
-                System.out.println("the notes are filled with various equations and formulas, presumably how to make various mixtures and recipes. Towards the bottom of the second page is a recipe titled 'Lens enhancement solution' ");
-                MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlchemyPuzzle());
+        commands.put(CommandDefaults.PICK_UP + "BOTTLE(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you don't trust yourself to pick up the correct bottle without knowing what Fei has said or written.");}});
+        commands.put(CommandDefaults.PICK_UP + "POT(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you don't trust yourself to pick up the correct pot without knowing what Fei ahs said or written.");}});
+        commands.put(CommandDefaults.INSPECT + "(NOTE(S)?|PAPER(S)?|WRITING(S)?)", new Callback() {
+            @Override
+            public void callback() {
+                if (puzzleComplete) {
+                    System.out.println("You've already looked over the papers and completed Fei's instructions.");
+                } else {
+                    System.out.println("the notes are filled with various equations and formulas, presumably how to make various mixtures and recipes. Towards the bottom of the second page is a recipe titled 'Lens enhancement solution' ");
+                    MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlchemyPuzzle());
+                }
             }
         });
-        commands.put(CommandDefaults.EXIT.getRegex(), () -> {
-            moveToRoom("l1r4");
+        commands.put(CommandDefaults.EXIT.getRegex(), new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r4");
+            }
         });
     }
 }

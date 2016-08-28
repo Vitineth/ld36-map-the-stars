@@ -5,6 +5,7 @@ import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
 import com.github.vitineth.map.the.stars.log.Log;
+import com.github.vitineth.map.the.stars.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -22,12 +23,7 @@ public class L1R4 extends Room {
 
     public L1R4(Level parent) {
         super("Glass Forgery", "You enter into a large room that Fei uses to produce the glass lenses. The walls are crafted from the same stone and rammed earth materials that the rest of the facility is made from. It contains a few furnaces littered around the room with channels carved into the ground for the molten glass to collect in when not used. Various casts rest against the wall to the west. Your attention is more drawn to the large wooden table in the centre of the room. You see the flash of reflected light as you step in and guess that Fei has finally finished the lenses he's been promising. The room radiates heat and you can feel the residual warmth of the furnaces lingering in the room.", "l1r4", parent);
-
-        try {
-            setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r4.png")));
-        } catch (IOException e) {
-            Log.s("RoomL1R4", "Failed to load the level image! The interactive pane will be blank!", e);
-        }
+        tryImageLoad();
     }
 
     @Override
@@ -46,28 +42,59 @@ public class L1R4 extends Room {
 
     @Override
     protected void setupCommands() {
-        for (String key : descriptions.keySet()) {
-            commands.put(CommandDefaults.INSPECT + key, () -> System.out.println(descriptions.get(key)));
+        for (final String key : descriptions.keySet()) {
+            commands.put(CommandDefaults.INSPECT + key, new Callback() {
+                @Override
+                public void callback() {
+                    System.out.println(descriptions.get(key));
+                }
+            });
         }
-        commands.put(CommandDefaults.PICK_UP+"(MO(U)?LD(S)?|CAST(S)?)", () -> System.out.println("You go to lift one of the moulds and remember that this is a two man job. Even if you could lift it, what would you need it for?"));
-        commands.put(CommandDefaults.PICK_UP+"LENS(ES)?", () -> {
-            if (items.containsKey("LENSES")) {
-                System.out.println("with a mighty heave you manage to lift the lenses of the table. The legs bend back into their place almost thankful of being relieved of the weight. Your arms strain slightly but you steady yourself and place them into the bag next to the table. Gently placing it on your back you get used to the weight.");
-                getPlayer().addItem(items.get("LENSES"));
-                items.remove("LENSES");
-            }else{
-                System.out.println("You already have the lenses.");
+        commands.put(CommandDefaults.PICK_UP + "(MO(U)?LD(S)?|CAST(S)?)", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("You go to lift one of the moulds and remember that this is a two man job. Even if you could lift it, what would you need it for?");
             }
         });
-        commands.put(CommandDefaults.USE + "furnace", () -> System.out.println("You can't see Fei's gloves or tools anywhere and touching the furnaces at this heat would surely be a painful endeavour. Even if you could find the tools, what would you need them for?"));
-        commands.put(CommandDefaults.USE +"lens(es)?", () ->{
-            if (items.containsKey("LENSES")){
-                System.out.println("You look through the lens and see the words on the paper distorted and twisted to unreadable proportions. Maybe this would work better in something? ");
-            }else{
-                System.out.println("The lenses are already stowed in the bag, there's no use dragging them out once again.");
+        commands.put(CommandDefaults.PICK_UP + "LENS(ES)?", new Callback() {
+            @Override
+            public void callback() {
+                if (items.containsKey("LENSES")) {
+                    System.out.println("with a mighty heave you manage to lift the lenses of the table. The legs bend back into their place almost thankful of being relieved of the weight. Your arms strain slightly but you steady yourself and place them into the bag next to the table. Gently placing it on your back you get used to the weight.");
+                    getPlayer().addItem(items.get("LENSES"));
+                    items.remove("LENSES");
+                } else {
+                    System.out.println("You already have the lenses.");
+                }
             }
         });
-        commands.put(CommandDefaults.DOOR + "(north|front|forward|top) door", () -> moveToRoom("l1r6"));
-        commands.put("(" + CommandDefaults.DOOR + "(south|exit|back|bottom) door)|" + CommandDefaults.EXIT, () -> moveToRoom("l1r3"));
+        commands.put(CommandDefaults.USE + "furnace", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("You can't see Fei's gloves or tools anywhere and touching the furnaces at this heat would surely be a painful endeavour. Even if you could find the tools, what would you need them for?");
+            }
+        });
+        commands.put(CommandDefaults.USE + "lens(es)?", new Callback() {
+            @Override
+            public void callback() {
+                if (items.containsKey("LENSES")) {
+                    System.out.println("You look through the lens and see the words on the paper distorted and twisted to unreadable proportions. Maybe this would work better in something? ");
+                } else {
+                    System.out.println("The lenses are already stowed in the bag, there's no use dragging them out once again.");
+                }
+            }
+        });
+        commands.put(CommandDefaults.DOOR + "(north|front|forward|top) door", new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r6");
+            }
+        });
+        commands.put("(" + CommandDefaults.DOOR + "(south|exit|back|bottom) door)|" + CommandDefaults.EXIT, new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r3");
+            }
+        });
     }
 }

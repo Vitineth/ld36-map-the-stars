@@ -8,7 +8,9 @@ import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -33,6 +35,14 @@ public abstract class Room {
 
     public Room(String roomName, String description, String roomID, Level parent) {
         this(roomName, description, roomID, null, parent);
+    }
+
+    protected void tryImageLoad(){
+        try {
+            setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/" + getClass().getSimpleName().toLowerCase() + ".png")));
+        } catch (IOException | IllegalArgumentException e) {
+            Log.s(getClass().getSimpleName(), "Failed to load the level image! The interactive pane will be blank!", e);
+        }
     }
 
     public Room(String roomName, String description, String roomID, BufferedImage image, Level parent) {
@@ -61,6 +71,16 @@ public abstract class Room {
 
     protected abstract void setupCommands();
 
+    public void reset(){
+        descriptions.clear();
+        items.clear();
+        commands.clear();
+        setupDefaults();
+        setupItems();
+        setupDescriptions();
+        setupCommands();
+    }
+
     public void handleCommand(String command) {
         boolean success = false;
         for (String regex : commands.keySet()) {
@@ -76,7 +96,12 @@ public abstract class Room {
 
     private void setupDefaults() {
         descriptions.put("ROOM", description);
-        commands.put(CommandDefaults.INSPECT.getRegex() + "ROOM", () -> System.out.println(descriptions.get("ROOM")));
+        commands.put(CommandDefaults.INSPECT.getRegex() + "ROOM", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println(descriptions.get("ROOM"));
+            }
+        });
     }
 
     protected Player getPlayer() {

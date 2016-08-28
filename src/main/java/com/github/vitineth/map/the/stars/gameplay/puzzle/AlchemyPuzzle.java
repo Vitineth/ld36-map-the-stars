@@ -120,12 +120,15 @@ public class AlchemyPuzzle extends Puzzle {
             g.drawImage(crack, 0, 0, out.getWidth(), out.getHeight(), null);
             g.setColor(new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256), 100));
             g.fillRect(0, 0, out.getWidth(), out.getHeight());
-            new Thread(() -> {
-                try {
-                    Thread.sleep(400);
-                    panel.repaint();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(400);
+                        panel.repaint();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         }
@@ -152,19 +155,21 @@ public class AlchemyPuzzle extends Puzzle {
     @Override
     public void mouseClicked(MouseEvent e) {
         panel.repaint();
-        circles.stream().filter(circle -> circle.contains(e.getX(), e.getY())).forEach(circle -> {
-            if (circle.getCircleID().equals("RESET")) {
-                mixture.clear();
-            } else {
-                if (mixture.size() >= 1 && mixture.get(mixture.size() - 1).getCircle().getCircleID().equals(circle.getCircleID())) {
-                    Mixture m = mixture.get(mixture.size() - 1);
-                    m.setAmount(m.getAmount() + 1);
-                    mixture.set(mixture.size() - 1, m);
+        for (Circle circle : circles){
+            if (circle.contains(e.getX(), e.getY())){
+                if (circle.getCircleID().equals("RESET")) {
+                    mixture.clear();
                 } else {
-                    mixture.add(new Mixture(circle, 1));
+                    if (mixture.size() >= 1 && mixture.get(mixture.size() - 1).getCircle().getCircleID().equals(circle.getCircleID())) {
+                        Mixture m = mixture.get(mixture.size() - 1);
+                        m.setAmount(m.getAmount() + 1);
+                        mixture.set(mixture.size() - 1, m);
+                    } else {
+                        mixture.add(new Mixture(circle, 1));
+                    }
                 }
             }
-        });
+        }
         if (mixture.size() >= correct.size() && mixture.get(mixture.size() - 1).getAmount() >= correct.get(correct.size() - 1).getAmount()) {
             boolean s = true;
             if (mixture.size() == correct.size()) {
@@ -179,15 +184,18 @@ public class AlchemyPuzzle extends Puzzle {
             if (!s) {
                 hallucination = true;
                 panel.repaint();
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(5000);
-                        hallucination = false;
-                        panel.repaint();
-                        mixture.clear();
-                        System.out.println(correct.get(0).getAmount() + " drops of " + correct.get(0).getCircle().getCircleID());
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(5000);
+                            hallucination = false;
+                            panel.repaint();
+                            mixture.clear();
+                            System.out.println(correct.get(0).getAmount() + " drops of " + correct.get(0).getCircle().getCircleID());
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }).start();
             } else {
@@ -197,7 +205,7 @@ public class AlchemyPuzzle extends Puzzle {
                 return;
             }
         }
-        System.out.println("   " + mixture.get(mixture.size() - 1).getAmount() + " drops");
+        System.out.println("   " + mixture.get(mixture.size() - 1 < 0 ? 0 : mixture.size() - 1).getAmount() + " drops");
         if (mixture.size() < correct.size() && correct.get(mixture.size() - 1).getAmount() == mixture.get(mixture.size() - 1).getAmount()) {
             System.out.println(correct.get(mixture.size()).getAmount() + " drops of " + correct.get(mixture.size()).getCircle().getCircleID());
         }

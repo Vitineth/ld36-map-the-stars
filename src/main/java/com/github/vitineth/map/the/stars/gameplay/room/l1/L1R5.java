@@ -4,6 +4,7 @@ import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.items.Item;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
+import com.github.vitineth.map.the.stars.util.Callback;
 
 /**
  * Class Description
@@ -35,22 +36,55 @@ public class L1R5 extends Room {
 
     @Override
     protected void setupCommands() {
-        for (String key : descriptions.keySet()) {
-            commands.put(CommandDefaults.INSPECT + key, () -> System.out.println(descriptions.get(key)));
+        for (final String key : descriptions.keySet()) {
+            commands.put(CommandDefaults.INSPECT + key, new Callback() {
+                @Override
+                public void callback() {
+                    System.out.println(descriptions.get(key));
+                }
+            });
         }
-        commands.put(CommandDefaults.USE + "(BLOOMER(IES|Y))|FURNACE(S)?", () -> System.out.println("you have no need to use the bloomery and besides, you wouldn't trust yourself to do it without Fei present."));
-        commands.put(CommandDefaults.USE + "TOOL(S)?", () -> System.out.println("you have no need to use the tools at this moment, you are sure that Fei can sort the bloomery when he returns and you have no need to smelt any materials."));
-        commands.put(("(" + CommandDefaults.USE.getRegex() + "|" + CommandDefaults.PICK_UP.getRegex() + ")") + "ORE(S)?", () -> System.out.println("you could barely lift the ore without doing some serious injuries let alone do anything with it"));
-        commands.put(CommandDefaults.PICK_UP + "TOOL(S)?", () -> System.out.println("you have no need for the tools right now so decide against picking them up."));
-        commands.put(CommandDefaults.PICK_UP + "FRAME(S)?", () -> {
-            if (items.containsKey("FRAMES")) {
-                System.out.println("you collect the frames, your arms straining under their weight.");
-                getPlayer().addItem(items.get("FRAMES"));
-                items.remove("FRAMES");
-            } else {
-                System.out.println("You've already collected the frames!");
+        commands.put(CommandDefaults.USE + "(BLOOMER(IES|Y))|FURNACE(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you have no need to use the bloomery and besides, you wouldn't trust yourself to do it without Fei present.");
             }
         });
-        commands.put(CommandDefaults.EXIT.getRegex(), () -> moveToRoom("l1r3"));
+        commands.put(CommandDefaults.USE + "TOOL(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you have no need to use the tools at this moment, you are sure that Fei can sort the bloomery when he returns and you have no need to smelt any materials.");
+            }
+        });
+        commands.put(("(" + CommandDefaults.USE.getRegex() + "|" + CommandDefaults.PICK_UP.getRegex() + ")") + "ORE(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you could barely lift the ore without doing some serious injuries let alone do anything with it");
+            }
+        });
+        commands.put(CommandDefaults.PICK_UP + "TOOL(S)?", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println("you have no need for the tools right now so decide against picking them up.");
+            }
+        });
+        commands.put(CommandDefaults.PICK_UP + "FRAME(S)?", new Callback() {
+            @Override
+            public void callback() {
+                if (items.containsKey("FRAMES")) {
+                    System.out.println("you collect the frames, your arms straining under their weight.");
+                    getPlayer().addItem(items.get("FRAMES"));
+                    items.remove("FRAMES");
+                } else {
+                    System.out.println("You've already collected the frames!");
+                }
+            }
+        });
+        commands.put(CommandDefaults.EXIT.getRegex(), new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r3");
+            }
+        });
     }
 }

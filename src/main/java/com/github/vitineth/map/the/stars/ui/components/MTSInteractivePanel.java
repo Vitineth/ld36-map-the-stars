@@ -1,5 +1,6 @@
 package com.github.vitineth.map.the.stars.ui.components;
 
+import com.github.vitineth.map.the.stars.MapTheStars;
 import com.github.vitineth.map.the.stars.gameplay.puzzle.Puzzle;
 import com.github.vitineth.map.the.stars.ui.theme.Theme;
 
@@ -47,7 +48,7 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
             scale.getGraphics().drawImage(image, 0, 0, scale.getWidth(), scale.getHeight(), null);
             g2d.drawImage(scale, (getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2, null);
         }
-        if (puzzle != null){
+        if (puzzle != null) {
             BufferedImage frame = puzzle.getActiveFrame();
             double hfr = (double) getHeight() / (double) frame.getHeight();
             BufferedImage scale = new BufferedImage((int) (frame.getWidth() * hfr), (int) (frame.getHeight() * hfr), frame.getType());
@@ -61,7 +62,7 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
 
             puzzle.updateDrawSize(new Dimension(scale.getWidth(), scale.getHeight()));
 
-            if (puzzle.isComplete()){
+            if (puzzle.isComplete()) {
                 completePuzzle();
             }
         }
@@ -71,8 +72,8 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         this.image = image;
         repaint();
     }
-    
-    public void launchPuzzle(Puzzle puzzle){
+
+    public void launchPuzzle(Puzzle puzzle) {
         this.puzzle = puzzle;
         enableInputMethods(true);
         addKeyListener(puzzle);
@@ -80,10 +81,12 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         repaint();
     }
 
-    public void completePuzzle(){
-        if (puzzle == null)return;
+    public void completePuzzle() {
+        if (puzzle == null) return;
         removeKeyListener(puzzle);
         enableInputMethods(false);
+        if (puzzle.getCompleteCallback() != null) puzzle.getCompleteCallback().callback();
+        MapTheStars.getMtsMainWindow().getInputArea().setLocked(false);
         puzzle = null;
         repaint();
     }
@@ -113,14 +116,14 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         if (puzzle != null) mapInput(e, "exit");
     }
 
-    private void mapInput(MouseEvent e, String type){
+    private void mapInput(MouseEvent e, String type) {
         int drawX = clickOffset[0];
         int drawY = clickOffset[1];
 
         int drawW = drawSize[0];
         int drawH = drawSize[1];
 
-        if (e.getX() > drawX && e.getY() > drawY && e.getX() < drawX + drawW && e.getY() < drawY + drawH){
+        if (e.getX() > drawX && e.getY() > drawY && e.getX() < drawX + drawW && e.getY() < drawY + drawH) {
             //Here we know that the X and Y is at least greater than the click offset so we can just remove that making
             //0 on the image, 0.
             int clickX = e.getX() - drawX;
@@ -140,7 +143,7 @@ public class MTSInteractivePanel extends JPanel implements MouseListener {
         }
     }
 
-    private int map(int n, int in_min, int in_max, int out_min, int out_max){
+    private int map(int n, int in_min, int in_max, int out_min, int out_max) {
         return (n - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 }

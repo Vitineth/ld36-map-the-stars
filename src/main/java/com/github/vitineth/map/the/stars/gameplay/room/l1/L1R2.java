@@ -55,136 +55,183 @@ public class L1R2 extends Room {
 
     @Override
     protected void setupCommands() {
-        commands.put(CommandDefaults.INSPECT + "GADGET", () -> System.out.println(items.get("GADGET").getDescription()));
-        commands.put(CommandDefaults.PICK_UP + "(DEVICE|GADGET)", () -> {
-            if (items.containsKey("GADGET")) {
-                System.out.print("You pick up the gadget from the table ");
-                if (deviceInspected)
-                    System.out.println("and recognise the shape to match some of those already inserted in the device in the centre of the room.");
-                else System.out.println("but you do not recognise where it could fit.");
+        commands.put(CommandDefaults.INSPECT + "GADGET", new Callback() {
+            @Override
+            public void callback() {
+                System.out.println(items.get("GADGET").getDescription());
+            }
+        });
+        commands.put(CommandDefaults.PICK_UP + "(DEVICE|GADGET)", new Callback() {
+            @Override
+            public void callback() {
 
-                getPlayer().addItem(items.get("GADGET"));
-                items.remove("GADGET");
-            } else {
-                System.out.println("There is no gadget to pick up in the room");
-            }
-        });
-        commands.put("(USE (GADGET|DEVICE) (ON|WITH)|INSERT (GADGET|DEVICE) INTO|PUSH (GADGET|DEVICE) INTO|COMBINE (GADGET|DEVICE) WITH) (DEVICE|TELESCOPE|MAIN DEVICE|DEVICE IN( THE)? CENTRE( OF THE ROOM)?)", () -> {
-            if (deviceInspected) {
-                if (!controlInserted) {
-                    System.out.println("You push the gadget into the slot on the side of the device and it slides in gently, locking into place with a soft clicking sound. ");
-                    getPlayer().removeItem("Unknown Gadget");
-                    controlInserted = true;
+                if (items.containsKey("GADGET")) {
+                    System.out.print("You pick up the gadget from the table ");
+                    if (deviceInspected)
+                        System.out.println("and recognise the shape to match some of those already inserted in the device in the centre of the room.");
+                    else System.out.println("but you do not recognise where it could fit.");
+
+                    getPlayer().addItem(items.get("GADGET"));
+                    items.remove("GADGET");
                 } else {
-                    System.out.println("You've already put the gadget into the device.");
+                    System.out.println("There is no gadget to pick up in the room");
                 }
-            } else {
-                System.out.println("You don't know how the gadget would fit into the device.");
             }
         });
-        commands.put("(" + CommandDefaults.USE + "DEVICE)|(LOOK THROUGH DEVICE)", () -> {
-            if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
-                System.out.println("The image through the lens is still blurry. Some of the slots don't seem to have any frames or lenses in. Perhaps that could have something to do with it.");
-            } else {
-                System.out.println("The image seems to be clearer now but it's still not perfect.");
-                if (controlInserted) {
-                    if (!deviceAligned) {
-                        if (chemicalInserted) {
-                            System.out.println("You remember the control you inserted on the side of the device and begin trying to adjust the lenses.");
-                            MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlignPuzzle());
-                            deviceAligned = true;
-                        }else{
-                            System.out.println("You look through the lens but realise that Fei's mixture is missing. If only you could find it.");
+        commands.put("(USE (GADGET|DEVICE) (ON|WITH)|INSERT (GADGET|DEVICE) INTO|PUSH (GADGET|DEVICE) INTO|COMBINE (GADGET|DEVICE) WITH) (DEVICE|TELESCOPE|MAIN DEVICE|DEVICE IN( THE)? CENTRE( OF THE ROOM)?)", new Callback() {
+            @Override
+            public void callback() {
+
+                if (deviceInspected) {
+                    if (!controlInserted) {
+                        System.out.println("You push the gadget into the slot on the side of the device and it slides in gently, locking into place with a soft clicking sound. ");
+                        getPlayer().removeItem("Unknown Gadget");
+                        controlInserted = true;
+                    } else {
+                        System.out.println("You've already put the gadget into the device.");
+                    }
+                } else {
+                    System.out.println("You don't know how the gadget would fit into the device.");
+                }
+            }
+        });
+        commands.put("(" + CommandDefaults.USE + "DEVICE)|(LOOK THROUGH DEVICE)", new Callback() {
+            @Override
+            public void callback() {
+
+                if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
+                    System.out.println("The image through the lens is still blurry. Some of the slots don't seem to have any frames or lenses in. Perhaps that could have something to do with it.");
+                } else {
+                    System.out.println("The image seems to be clearer now but it's still not perfect.");
+                    if (controlInserted) {
+                        if (!deviceAligned) {
+                            if (chemicalInserted) {
+                                System.out.println("You remember the control you inserted on the side of the device and begin trying to adjust the lenses.");
+                                MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlignPuzzle());
+                                deviceAligned = true;
+                            } else {
+                                System.out.println("You look through the lens but realise that Fei's mixture is missing. If only you could find it.");
+                            }
+                        } else {
+                            System.out.println("You've already lined up the device and seen the stars.");
                         }
                     } else {
-                        System.out.println("You've already lined up the device and seen the stars.");
+                        System.out.println("If only there was some way you could adjust the lenses to make the image clearer.");
                     }
-                } else {
-                    System.out.println("If only there was some way you could adjust the lenses to make the image clearer.");
                 }
             }
         });
-        commands.put("(" + CommandDefaults.USE + "(LIQUID|SOLUTION|LENS SOLUTION|LENSES SOLUTION|LENS ENHANCEMENT SOLUTION|LENS LIQUID|CHEMICAL|FEIS CHEMICAL) ON DEVICE)|(POUR LIQUID IN DEVICE)", () -> {
-            if (getPlayer().containsItem("Lens Enhancement Solution")) {
-                if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
-                    System.out.println("Shouldn't you insert all the lenses and frames before you add the liquid?");
-                } else {
-                    System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. ");
-                    chemicalInserted = true;
-                }
-            } else {
-                System.out.println("You don't have any liquids to apply on the machine.");
-            }
-        });
-        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (FRAME(S)?) ON DEVICE|INSERT FRAME(S)? INTO DEVICE|COMBINE FRAME(S)? AND DEVICE|COMBINE FRAME(S)? WITH DEVICE|PUT FRAME(S)? IN DEVICE)", () -> {
-            if (getPlayer().containsItem("Lens Frames")) {
-                if (frameInserted[0] && frameInserted[1] && frameInserted[2]) {
-                    System.out.println("All the frames are inserted!");
-                } else {
-                    if (!frameInserted[0]) {
-                        System.out.println("One frame inserted, two to go!");
-                        frameInserted[0] = true;
-                    } else if (!frameInserted[1]) {
-                        System.out.println("Two frames inserted, one to go!");
-                        frameInserted[1] = true;
-                    } else if (!frameInserted[2]) {
-                        System.out.println("All three frames inserted!");
-                        frameInserted[2] = true;
-                    }
-                    for (Item i : getPlayer().getInventory()) {
-                        if (i.getName().equals("Lens Frames")) {
-                            i.setAmount(i.getAmount() - 1);
-                            if (i.getAmount() == 0) {
-                                getPlayer().removeItem(i);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }else{
-                System.out.println("You have no frames.");
-            }
-        });
-        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (LENS(ES)?) ON DEVICE|INSERT LENS(ES)? INTO DEVICE|COMBINE LENS(ES)? AND DEVICE|COMBINE LENS(ES)? WITH DEVICE|PUT LENS(ES)? IN DEVICE)", () -> {
-            if (getPlayer().containsItem("Lens")) {
-                if (lensInserted[0] && lensInserted[1] && lensInserted[2]) {
-                    System.out.println("All the lenss are inserted!");
-                } else {
-                    if (!lensInserted[0]) {
-                        System.out.println("One lens inserted, two to go!");
-                        lensInserted[0] = true;
-                    } else if (!lensInserted[1]) {
-                        System.out.println("Two lens inserted, one to go!");
-                        lensInserted[1] = true;
-                    } else if (!lensInserted[2]) {
-                        System.out.println("All three lens inserted!");
-                        lensInserted[2] = true;
-                    }
-                    for (Item i : getPlayer().getInventory()) {
-                        if (i.getName().equals("Lens")) {
-                            i.setAmount(i.getAmount() - 1);
-                            if (i.getAmount() == 0){
-                                getPlayer().removeItem(i);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }else{
-                System.out.println("You have no lenses.");
-            }
-        });
-        commands.put(CommandDefaults.DOOR + "((NORTH|FORWARD|FRONT) DOOR)", () -> moveToRoom("l1r3"));
-        commands.put(CommandDefaults.DOOR + "((SOUTH|BACKWARD|BACK) DOOR)", () -> moveToRoom("l1r1"));
+        commands.put("(" + CommandDefaults.USE + "(LIQUID|SOLUTION|LENS SOLUTION|LENSES SOLUTION|LENS ENHANCEMENT SOLUTION|LENS LIQUID|CHEMICAL|FEIS CHEMICAL) ON DEVICE)|(POUR LIQUID IN DEVICE)", new Callback() {
+            @Override
+            public void callback() {
 
-        for (String key : descriptions.keySet()) {
+                if (getPlayer().containsItem("Lens Enhancement Solution")) {
+                    if (!frameInserted[0] || !frameInserted[1] || !frameInserted[2] || !lensInserted[0] || !lensInserted[1] || !lensInserted[2]) {
+                        System.out.println("Shouldn't you insert all the lenses and frames before you add the liquid?");
+                    } else {
+                        System.out.println("You pull out the lens enhancement liquid and begin to pour it into the labelled slot on the side of the device. ");
+                        chemicalInserted = true;
+                    }
+                } else {
+                    System.out.println("You don't have any liquids to apply on the machine.");
+                }
+            }
+        });
+        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (FRAME(S)?) ON DEVICE|INSERT FRAME(S)? INTO DEVICE|COMBINE FRAME(S)? AND DEVICE|COMBINE FRAME(S)? WITH DEVICE|PUT FRAME(S)? IN DEVICE)", new Callback() {
+            @Override
+            public void callback() {
+
+                if (getPlayer().containsItem("Lens Frames")) {
+                    if (frameInserted[0] && frameInserted[1] && frameInserted[2]) {
+                        System.out.println("All the frames are inserted!");
+                    } else {
+                        if (!frameInserted[0]) {
+                            System.out.println("One frame inserted, two to go!");
+                            frameInserted[0] = true;
+                        } else if (!frameInserted[1]) {
+                            System.out.println("Two frames inserted, one to go!");
+                            frameInserted[1] = true;
+                        } else if (!frameInserted[2]) {
+                            System.out.println("All three frames inserted!");
+                            frameInserted[2] = true;
+                        }
+                        for (Item i : getPlayer().getInventory()) {
+                            if (i.getName().equals("Lens Frames")) {
+                                i.setAmount(i.getAmount() - 1);
+                                if (i.getAmount() == 0) {
+                                    getPlayer().removeItem(i);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("You have no frames.");
+                }
+            }
+        });
+        commands.put("(" + CommandDefaults.USE + "(ON|TO)|USE (LENS(ES)?) ON DEVICE|INSERT LENS(ES)? INTO DEVICE|COMBINE LENS(ES)? AND DEVICE|COMBINE LENS(ES)? WITH DEVICE|PUT LENS(ES)? IN DEVICE)", new Callback() {
+            @Override
+            public void callback() {
+
+                if (getPlayer().containsItem("Lens")) {
+                    if (lensInserted[0] && lensInserted[1] && lensInserted[2]) {
+                        System.out.println("All the lenss are inserted!");
+                    } else {
+                        if (!lensInserted[0]) {
+                            System.out.println("One lens inserted, two to go!");
+                            lensInserted[0] = true;
+                        } else if (!lensInserted[1]) {
+                            System.out.println("Two lens inserted, one to go!");
+                            lensInserted[1] = true;
+                        } else if (!lensInserted[2]) {
+                            System.out.println("All three lens inserted!");
+                            lensInserted[2] = true;
+                        }
+                        for (Item i : getPlayer().getInventory()) {
+                            if (i.getName().equals("Lens")) {
+                                i.setAmount(i.getAmount() - 1);
+                                if (i.getAmount() == 0) {
+                                    getPlayer().removeItem(i);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("You have no lenses.");
+                }
+            }
+        });
+        commands.put(CommandDefaults.DOOR + "((NORTH|FORWARD|FRONT) DOOR)", new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r3");
+            }
+        });
+        commands.put(CommandDefaults.DOOR + "((SOUTH|BACKWARD|BACK) DOOR)", new Callback() {
+            @Override
+            public void callback() {
+                moveToRoom("l1r1");
+            }
+        });
+
+        for (final String key : descriptions.keySet()) {
             if (key.equals("DEVICE")) {
-                commands.put(CommandDefaults.INSPECT + key, () -> {
-                    System.out.println(descriptions.get(key));
-                    deviceInspected = true;
+                commands.put(CommandDefaults.INSPECT + key, new Callback() {
+                    @Override
+                    public void callback() {
+                        System.out.println(descriptions.get(key));
+                        deviceInspected = true;
+                    }
                 });
             } else {
-                commands.put(CommandDefaults.INSPECT + key, () -> System.out.println(descriptions.get(key)));
+                commands.put(CommandDefaults.INSPECT + key, new Callback() {
+                    @Override
+                    public void callback() {
+                        System.out.println(descriptions.get(key));
+                    }
+                });
             }
         }
     }

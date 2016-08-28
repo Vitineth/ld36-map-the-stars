@@ -1,63 +1,55 @@
-package com.github.vitineth.map.the.stars.gameplay.room.l1;
+package com.github.vitineth.map.the.stars.gameplay.room.l2;
 
 import com.github.vitineth.map.the.stars.gameplay.command.CommandDefaults;
 import com.github.vitineth.map.the.stars.gameplay.level.Level;
 import com.github.vitineth.map.the.stars.gameplay.room.Room;
-import com.github.vitineth.map.the.stars.log.Log;
 import com.github.vitineth.map.the.stars.util.Callback;
-
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
 /**
  * Class Description
  * <p/>
  * File created by Ryan (vitineth).<br>
- * Created on 27/08/2016.
+ * Created on 28/08/2016.
  *
  * @author Ryan (vitineth)
- * @since 27/08/2016
+ * @since 28/08/2016
  */
-public class L1R3 extends Room {
+public class L2R6 extends Room {
 
-    public L1R3(Level parent) {
-        super("Passage way", "The door opens into a small passage way with two doors along its edge. One to the north and one to east. ", "l1r3", parent);
-
-        try {
-            setImage(ImageIO.read(getClass().getResourceAsStream("/rooms/l1r3.png")));
-        } catch (IOException e) {
-            Log.s("RoomL1R3", "Failed to load the level image! The interactive pane will be blank!", e);
-        }
+    public L2R6(Level parent) {
+        super("Hallucination Passage", "The passage way is empty as usual but an unnatural breeze rolls through with the torches flickering in the breeze, two of which blow out.", "l2r6", parent);
+        tryImageLoad();
     }
 
     @Override
     protected void setupItems() {
-        //No items.
+
     }
 
     @Override
     protected void setupDescriptions() {
-        //No descriptions.
+
     }
 
     @Override
     protected void setupCommands() {
+
         commands.put(CommandDefaults.DOOR + "(FRONT|NORTH|FORWARD) DOOR", new Callback() {
             @Override
             public void callback() {
-                moveToRoom("l1r4");
+                moveToRoom("l24");
             }
         });
         commands.put(CommandDefaults.DOOR + "(RIGHT|EAST|SIDE) DOOR", new Callback() {
             @Override
             public void callback() {
-                moveToRoom("l1r5");
+                moveToRoom("l2r5");
             }
         });
         commands.put(CommandDefaults.EXIT.getRegex(), new Callback() {
             @Override
             public void callback() {
-                moveToRoom("l1r2");
+                moveToRoom("l2r7");
             }
         });
     }
