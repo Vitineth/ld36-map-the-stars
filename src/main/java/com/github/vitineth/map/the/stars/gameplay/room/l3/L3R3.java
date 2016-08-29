@@ -105,7 +105,6 @@ public class L3R3 extends Room {
 
     @Override
     protected void setupCommands() {
-        System.out.println(CommandDefaults.USE.getRegex().substring(0, CommandDefaults.USE.getRegex().length() - 1));
         commands.put(CommandDefaults.USE.getRegex() + "(KING|EMPEROR|MAN|THRONE|PERSON)", () -> {
             MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new ChatPuzzle(manager));
         });

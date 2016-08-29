@@ -51,21 +51,24 @@ public class MTSInteractivePanel extends JPanel implements MouseListener, MouseM
             g2d.drawImage(scale, (getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2, null);
         }
         if (puzzle != null) {
-            BufferedImage frame = puzzle.getActiveFrame();
-            double hfr = (double) getHeight() / (double) frame.getHeight();
-            BufferedImage scale = new BufferedImage((int) (frame.getWidth() * hfr), (int) (frame.getHeight() * hfr), frame.getType());
-            Graphics2D sg = scale.createGraphics();
-            sg.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            sg.drawImage(frame, 0, 0, scale.getWidth(), scale.getHeight(), null);
-            g2d.drawImage(scale, (getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2, null);
+            try {
+                BufferedImage frame = puzzle.getActiveFrame();
+                double hfr = (double) getHeight() / (double) frame.getHeight();
+                BufferedImage scale = new BufferedImage((int) (frame.getWidth() * hfr), (int) (frame.getHeight() * hfr), frame.getType());
+                Graphics2D sg = scale.createGraphics();
+                sg.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                sg.drawImage(frame, 0, 0, scale.getWidth(), scale.getHeight(), null);
+                g2d.drawImage(scale, (getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2, null);
 
-            clickOffset = new int[]{(getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2};
-            drawSize = new int[]{scale.getWidth(), scale.getHeight()};
+                clickOffset = new int[]{(getWidth() - scale.getWidth()) / 2, (getHeight() - scale.getHeight()) / 2};
+                drawSize = new int[]{scale.getWidth(), scale.getHeight()};
 
-            puzzle.updateDrawSize(new Dimension(scale.getWidth(), scale.getHeight()));
+                puzzle.updateDrawSize(new Dimension(scale.getWidth(), scale.getHeight()));
 
-            if (puzzle.isComplete()) {
-                completePuzzle();
+                if (puzzle.isComplete()) {
+                    completePuzzle();
+                }
+            } catch (Exception e) {
             }
         }
     }

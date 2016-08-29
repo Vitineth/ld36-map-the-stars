@@ -92,7 +92,7 @@ public class L1R2 extends Room {
                             System.out.println("You remember the control you inserted on the side of the device and begin trying to adjust the lenses.");
                             MapTheStars.getMtsMainWindow().getInteractivePanel().launchPuzzle(new AlignPuzzle());
                             deviceAligned = true;
-                        }else{
+                        } else {
                             System.out.println("You look through the lens but realise that Fei's mixture is missing. If only you could find it.");
                         }
                     } else {
@@ -140,7 +140,7 @@ public class L1R2 extends Room {
                         }
                     }
                 }
-            }else{
+            } else {
                 System.out.println("You have no frames.");
             }
         });
@@ -155,21 +155,21 @@ public class L1R2 extends Room {
                     } else if (!lensInserted[1]) {
                         System.out.println("Two lens inserted, one to go!");
                         lensInserted[1] = true;
-                    } else  {
+                    } else {
                         System.out.println("All three lens inserted!");
                         lensInserted[2] = true;
                     }
                     for (Item i : getPlayer().getInventory()) {
                         if (i.getName().equals("Lens")) {
                             i.setAmount(i.getAmount() - 1);
-                            if (i.getAmount() == 0){
+                            if (i.getAmount() == 0) {
                                 getPlayer().removeItem(i);
                             }
                             break;
                         }
                     }
                 }
-            }else{
+            } else {
                 System.out.println("You have no lenses.");
             }
         });
