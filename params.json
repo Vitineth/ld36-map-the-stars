@@ -1,0 +1,6 @@
+{
+  "name": "Ld36-map-the-stars",
+  "tagline": "My first ever Ludum Dare entry for Ludum Dare 36. The theme is 'Ancient Technology'.",
+  "body": "# Map The Stars\r\nMy entry for the Ludum Dare 36 with the Theme of Ancient Technology.\r\n\r\n## The Game\r\nYou are an ancient astronomer working with a partner to try and create a book of star charts and maps but nothing can really be that simple. It's a text based adventure game crossed with some interactive elements. \r\n\r\n## Commands \r\nSome basic commands:  \r\n`EXAMINE <item>`  \r\n`USE <item>`  \r\n`USE <item> ON <item>`  \r\n`EXIT`  \r\n`USE <direction> DOOR`  \r\n`PICK UP <item>`  \r\n\r\nThere are some others so if something doesn't work, try a few other choices.\r\n\r\n## Running\r\nThe jar supplied with this is built for 1.8 and makes use of some new features so will not be able to run on a 1.7 installation. The `ld36-j1.7-compat` branch is not up to date right now so you will not be able to use that. Check back later on if you need it but Java 1.8 can be downloaded from [here](https://java.com/en/download/).\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
